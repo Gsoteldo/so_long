@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:36:58 by gabo              #+#    #+#             */
-/*   Updated: 2024/06/19 19:45:31 by gabo             ###   ########.fr       */
+/*   Updated: 2024/06/25 21:41:56 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@ void print_error(int message_flag)
 	ft_putstr_fd(RED "Error:\n" RC, 2);
 	if (message_flag == 1)
 		ft_putstr_fd("\t[No se encontro mapa]\n\n", 2);
+	else if (message_flag == 2)
+		ft_putstr_fd("\t[mapa invalido]\n\n", 2);
 	else 
 		ft_putstr_fd("\t[Extension invalida]\n\n", 2);
 }
+
 
 int check_extension(char *map)
 {
@@ -36,10 +39,77 @@ int check_extension(char *map)
 	return (1);
 }
 
-int check_map() 
+void comprobation_map(t_map *map, char *line)
 {
+
+		if (ft_strchr(line, 'C') != 0)
+			map->n_collectable++;
+		if (ft_strchr(line, 'E') != 0)
+			map->n_exit++;
+		if (ft_strchr(line, 'P') != 0)
+			map->n_start++;
+	if (map->n_collectable < 0 && map->n_exit != 1 && map->n_start != 1)
+		exit(0);
+}
+
+int is_rectangle(t_map *map) {
+	t_map *copy;
+	char *line;
+	int count;
 	
+
+	copy = map;
+	count = 0;
+	while (line = get_next_line(copy->fd))
+	{
+		comprobation_map(copy, line);
+			
+		if (count == 0)
+			map->length = (ft_strlen(line));
+		if(ft_strchr(line, '\0') != 0)
+			map->length = map->length;
+		count++;
+		if (map->length != (ft_strlen(line)))
+		{
+			ft_printf("%d| %d\n",map->length, ft_strlen(line));
+			ft_printf("%s\n", line);
+			ft_printf("No es rectangular\n");
+			return (0);
+		}
+		
+	}
+	ft_printf("Es rectangular\n");
+	return (1);
+
+}
+
+int check_map(t_map *map) 
+{
+	t_map *copy;
+
+	if (map->fd < 0)
+	{
+		print_error(1);
+		return (0);
+	}
+	copy = map;
+	if (is_rectangle(copy) == 0)
+	{
+		print_error(2);
+		return (0);
+	}
+	copy = map;
+
+	return (1);
 }
 
 
+
+	// while ((line = get_next_line(map->fd)))
+	// {
+	// 	if (ft_strchr(line, 'C') != 0)
+	// 		map->n_collectable++;
+	// 	ft_printf("%s", line);
+
+	// }
 

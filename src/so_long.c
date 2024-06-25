@@ -3,24 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:28:35 by gabo              #+#    #+#             */
-/*   Updated: 2024/06/18 23:09:09 by gabo             ###   ########.fr       */
+/*   Updated: 2024/06/25 19:17:06 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
-#include "mlx.h"
+#include "../mlx/mlx.h"
 
-
-
-
-int main(int argc, char *argv[])
-{
-	//void *mlx;
-	char *map;
-
+int comprobation(int argc, char **argv) {
 	if (argc != 2)
 	{
 		ft_putstr_fd(RED "Error! " RC, 2);
@@ -29,25 +22,50 @@ int main(int argc, char *argv[])
 		return (0);
 	}
 
-	if (check_extension(argv[1]) == 0)
+	else if (check_extension(argv[1]) == 0)
 		return (0);
+	else
+		return (1);
+
+}
+
+
+
+int main(int argc, char *argv[])
+{
+	void *mlx;
+	void *win;
+	t_map *map;
+	char *line;
+
 	
-	map = ft_strjoin("./maps/", argv[1]);
+	if (comprobation(argc, argv) == 0)
+		return (0);
+	map = (t_map *)ft_calloc(1, sizeof(t_map));
+	map->map = ft_strjoin("./maps/", argv[1]);
 	
-	int fd = open(map, O_RDONLY);
-	char *a;
+	map->fd = open(map->map, O_RDONLY);
 
-	while ((a = get_next_line(fd)))
-	{
-		ft_printf("%s", a);
-	}
+	if (check_map(map) == 0)
+		return (0);
+
+	ft_printf("Numero de coleccionables: %d\n", map->n_collectable);
+	ft_printf("Numero de salidas: %d\n", map->n_exit);
+	ft_printf("Numero de entradas: %d\n", map->n_start);
+	
 
 
 
 
-	close(fd);
-	// mlx = mlx_init();
-	// mlx = mlx_new_window(mlx, 1920, 1080, "so_long");
-	// mlx_loop(mlx);
-	return (0);
+
+	mlx = mlx_init();
+	if (!mlx)
+	return (1);
+	win = mlx_new_window(mlx, 1200, 1000, "so_long");
+	if (!win)
+		return (free(mlx), 1);
+	mlx_loop(mlx);
+	close(map->fd);
+	free(map);
+	return 0;
 }
