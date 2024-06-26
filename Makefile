@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+         #
+#    By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/29 21:28:44 by gabo              #+#    #+#              #
-#    Updated: 2024/06/24 18:00:11 by gsoteldo         ###   ########.fr        #
+#    Updated: 2024/06/26 10:15:14 by gabo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ OBJ = $(SRC:.c=.o)
 
 
 
-CC = gcc
+CC = gcc -g
 # CFLAGS = -Wall -Wextra -Werror -MMD
 MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 #LIB = -L. -lmlx -framework OpenGL -framework AppKit
