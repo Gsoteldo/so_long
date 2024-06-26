@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+         #
+#    By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/29 21:28:44 by gabo              #+#    #+#              #
-#    Updated: 2024/06/26 10:15:14 by gabo             ###   ########.fr        #
+#    Updated: 2024/06/26 18:03:23 by gsoteldo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME = so_long
 
 SRC = ./src/so_long.c \
 		./src/check_map.c \
+		./src/utils.c \
 
 OBJ = $(SRC:.c=.o)
 
@@ -25,7 +26,7 @@ CC = gcc -g
 # CFLAGS = -Wall -Wextra -Werror -MMD
 MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 #LIB = -L. -lmlx -framework OpenGL -framework AppKit
-DEPS = $(addsuffix .d, $(basename $(SRC)))
+# DEPS = $(addsuffix .d, $(basename $(SRC)))
 
 # MLX_LIB = /home/gabo/minilibx-linux/libmlx_Linux.a
 
@@ -33,7 +34,7 @@ all: $(NAME)
 
 
 #$(LIB) $(LIBFT) $(MLX_FLAGS) $(CFLAGS) 
--include $(DEPS)
+# -include $(DEPS)
 $(NAME): $(OBJ)  
 	@make -C libft
 	@make -C mlx all
@@ -43,6 +44,7 @@ $(NAME): $(OBJ)
 
 clean:
 	@rm -f $(OBJ)
+	# @rm -f $(DEPS)
 	@make clean -C libft
 	@make clean -C mlx
 

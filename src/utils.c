@@ -1,42 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/29 21:42:46 by gabo              #+#    #+#             */
-/*   Updated: 2024/06/26 19:42:05 by gsoteldo         ###   ########.fr       */
+/*   Created: 2024/06/26 17:35:57 by gsoteldo          #+#    #+#             */
+/*   Updated: 2024/06/26 17:36:22 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "../include/so_long.h"
 
-#include "../libft/libft.h"
-#include "../mlx/mlx.h"
-
-#define RC "\x1b[0m"
-#define RED "\x1b[31m"
-
-typedef struct
+void print_error(int message_flag)
 {
-	int		fd;
-	char	*map;
-	char	**map_copy;
-	int 	n_collectable;
-	int		n_exit;
-	int		n_start;
-	int 	width;
-	int 	height;
-	int 	posx_start;
-	int 	posy_start;
-}				t_map;
-
-int check_map(t_map *map);
-
-void print_error(int message_flag);
-
-
-
-#endif
+	ft_putstr_fd(RED "Error:\n" RC, 2);
+	if (message_flag == 1)
+		ft_putstr_fd("\t[No se encontro mapa]\n\n", 2);
+	else if (message_flag == 2)
+		ft_putstr_fd("\t[mapa invalido]\n\n", 2);
+	else 
+		ft_putstr_fd("\t[Extension invalida]\n\n", 2);
+}

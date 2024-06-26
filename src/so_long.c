@@ -6,14 +6,14 @@
 /*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:28:35 by gabo              #+#    #+#             */
-/*   Updated: 2024/06/25 19:17:06 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/06/26 18:12:58 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 #include "../mlx/mlx.h"
 
-int comprobation(int argc, char **argv) {
+static int comprobation(int argc, char **argv) {
 	if (argc != 2)
 	{
 		ft_putstr_fd(RED "Error! " RC, 2);
@@ -27,6 +27,21 @@ int comprobation(int argc, char **argv) {
 	else
 		return (1);
 
+}
+
+int check_extension(char *map)
+{
+	int i;
+
+	i = 0;
+	while (map[i] != '\0')
+		i++;
+	if (map[i - 4] != '.' || map[i - 3] != 'b'  || map[i - 2] != 'e' || map[i - 1] != 'r')
+	{
+		print_error(0);
+		return (0);
+	}
+	return (1);
 }
 
 
@@ -53,11 +68,7 @@ int main(int argc, char *argv[])
 	ft_printf("Numero de salidas: %d\n", map->n_exit);
 	ft_printf("Numero de entradas: %d\n", map->n_start);
 	
-
-
-
-
-
+	
 	mlx = mlx_init();
 	if (!mlx)
 	return (1);
