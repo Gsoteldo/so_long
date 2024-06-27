@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:36:58 by gabo              #+#    #+#             */
-/*   Updated: 2024/06/26 19:51:35 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/06/27 11:57:44 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,39 @@ int surrounded_by_walls(char **map)
 
 void flood_fill(t_map *map, int x, int y, int width, int height)
 {
-	if (x < 0 || x >= height || y  < 0 || y >= width || map->map_copy[x][y] == '1')
+	if (x < 0 || x >= width || y  < 0 || y >= height || map->map_copy[x][y] == '1' || map->map_copy[x][y] == 'X')
 		return ;
-	
+	if ((map->map_copy[x + 1][y] == 'E' || map->map_copy[x - 1][y] == 'E') && (map->map_copy[x][y + 1] == '1' || map->map_copy[x][y - 1] == '1'))
+		return ;
+	if ((map->map_copy[x + 1][y] == '1' || map->map_copy[x - 1][y] == '1') && (map->map_copy[x][y + 1] == 'E' || map->map_copy[x][y - 1] == 'E'))
+		return ;
+	if (map->map_copy[x][y] == 'C' || map->map_copy[x][y] == 'E')
+		map->map_copy[x][y] = '0';
+	map->map_copy[x][y] = 'X';
+	flood_fill(map, x + 1, y, width, height);
+	flood_fill(map, x - 1, y, width, height);
+	flood_fill(map, x, y + 1, width, height);
+	flood_fill(map, x, y - 1, width, height);
+
+
+}
+
+int is_valid_map(t_map *map, int x, int y, int width, int height)
+{
+	int i;
+
+	i++;
+	flood_fill(map, x, y, width, height);
+	while (map->map_copy[i])
+	{
+		if (ft_strchr(map->map_copy[i], '0') != 0)
+		{
+			ft_printf("Mapa imposible de resolver\n");
+			return (0);
+		}
+		i++;
+	}
+	return (1);
 }
 
 
@@ -72,7 +102,7 @@ void comprobation_map(t_map *map)
 		}
 		i++;
 	}
-	if (map->n_collectable < 0 && map->n_exit != 1 && map->n_start != 1)
+	if (map->n_collectable == 0 || map->n_exit != 1 || map->n_start != 1)
 	{
 		ft_printf("Error en el mapa\n");
 		exit(0);
@@ -121,14 +151,14 @@ int check_map(t_map *map)
 		line = get_next_line(map->fd);
 	}
 	map->map_copy = ft_split(aux, '\n');
+	map->map = ft_split(aux, '\n');
 	comprobation_map(map);
 	if (is_rectangle(map->map_copy) == 0 || surrounded_by_walls(map->map_copy) == 0)
 	{
 		print_error(2);
 		return (0);
 	}
-	
-	
+	flood_fill(map, map->posx_start, map->posy_start, map->width, map->height);
 }
 
 

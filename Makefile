@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+         #
+#    By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/29 21:28:44 by gabo              #+#    #+#              #
-#    Updated: 2024/06/26 18:03:23 by gsoteldo         ###   ########.fr        #
+#    Updated: 2024/06/27 00:10:13 by gabo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,6 @@ CC = gcc -g
 # CFLAGS = -Wall -Wextra -Werror -MMD
 MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 #LIB = -L. -lmlx -framework OpenGL -framework AppKit
-# DEPS = $(addsuffix .d, $(basename $(SRC)))
 
 # MLX_LIB = /home/gabo/minilibx-linux/libmlx_Linux.a
 
@@ -34,7 +33,6 @@ all: $(NAME)
 
 
 #$(LIB) $(LIBFT) $(MLX_FLAGS) $(CFLAGS) 
-# -include $(DEPS)
 $(NAME): $(OBJ)  
 	@make -C libft
 	@make -C mlx all
@@ -44,7 +42,6 @@ $(NAME): $(OBJ)
 
 clean:
 	@rm -f $(OBJ)
-	# @rm -f $(DEPS)
 	@make clean -C libft
 	@make clean -C mlx
 

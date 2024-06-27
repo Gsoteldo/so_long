@@ -3,15 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:28:35 by gabo              #+#    #+#             */
-/*   Updated: 2024/06/26 18:12:58 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/06/27 11:23:35 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 #include "../mlx/mlx.h"
+
+static int check_extension(char *map)
+{
+	int i;
+
+	i = 0;
+	while (map[i] != '\0')
+		i++;
+	if (map[i - 4] != '.' || map[i - 3] != 'b'  || map[i - 2] != 'e' || map[i - 1] != 'r')
+	{
+		print_error(0);
+		return (0);
+	}
+	return (1);
+}
 
 static int comprobation(int argc, char **argv) {
 	if (argc != 2)
@@ -29,20 +44,6 @@ static int comprobation(int argc, char **argv) {
 
 }
 
-int check_extension(char *map)
-{
-	int i;
-
-	i = 0;
-	while (map[i] != '\0')
-		i++;
-	if (map[i - 4] != '.' || map[i - 3] != 'b'  || map[i - 2] != 'e' || map[i - 1] != 'r')
-	{
-		print_error(0);
-		return (0);
-	}
-	return (1);
-}
 
 
 
@@ -52,14 +53,15 @@ int main(int argc, char *argv[])
 	void *win;
 	t_map *map;
 	char *line;
+	int i;
 
-	
+	i = 0;
 	if (comprobation(argc, argv) == 0)
 		return (0);
 	map = (t_map *)ft_calloc(1, sizeof(t_map));
-	map->map = ft_strjoin("./maps/", argv[1]);
+	map->file = ft_strjoin("./maps/", argv[1]);
 	
-	map->fd = open(map->map, O_RDONLY);
+	map->fd = open(map->file, O_RDONLY);
 
 	if (check_map(map) == 0)
 		return (0);
@@ -68,11 +70,25 @@ int main(int argc, char *argv[])
 	ft_printf("Numero de salidas: %d\n", map->n_exit);
 	ft_printf("Numero de entradas: %d\n", map->n_start);
 	
-	
+	ft_printf("Mapa original: \n");
+	while (map->map[i])
+	{
+		ft_printf("%s\n", map->map[i]);
+		i++;
+	}
+	ft_printf("\n");
+	i = 0;
+	ft_printf("Mapa comprobacion: \n");
+	while (map->map_copy[i])
+	{
+		ft_printf("%s\n", map->map_copy[i]);
+		i++;
+	}
+
 	mlx = mlx_init();
 	if (!mlx)
 	return (1);
-	win = mlx_new_window(mlx, 1200, 1000, "so_long");
+	win = mlx_new_window(mlx, 500, 500, "so_long");
 	if (!win)
 		return (free(mlx), 1);
 	mlx_loop(mlx);
