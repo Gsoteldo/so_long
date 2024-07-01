@@ -6,7 +6,7 @@
 /*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 17:35:57 by gsoteldo          #+#    #+#             */
-/*   Updated: 2024/06/26 17:36:22 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/06/27 18:19:37 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void print_error(int message_flag)
 		ft_putstr_fd("\t[No se encontro mapa]\n\n", 2);
 	else if (message_flag == 2)
 		ft_putstr_fd("\t[mapa invalido]\n\n", 2);
-	else 
+	else if (message_flag == 3)
+		ft_putstr_fd("\t[Mapa imposible de resolver]\n\n", 2);
+	else
 		ft_putstr_fd("\t[Extension invalida]\n\n", 2);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:36:58 by gabo              #+#    #+#             */
-/*   Updated: 2024/06/27 11:57:44 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/01 18:12:32 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ int is_valid_map(t_map *map, int x, int y, int width, int height)
 {
 	int i;
 
-	i++;
+	i = 0;
 	flood_fill(map, x, y, width, height);
 	while (map->map_copy[i])
 	{
-		if (ft_strchr(map->map_copy[i], '0') != 0)
+		if (ft_strchr(map->map_copy[i], 'E') != 0 || ft_strchr(map->map_copy[i], 'C') != 0)
 		{
 			ft_printf("Mapa imposible de resolver\n");
 			return (0);
@@ -97,8 +97,8 @@ void comprobation_map(t_map *map)
 		if (ft_strchr(map->map_copy[i], 'P') != 0)
 		{
 			map->n_start++;
-			map->posx_start = i;
-			map->posy_start = ft_strchr(map->map_copy[i], 'P') - map->map_copy[i];
+			map->posy_start = i;
+			map->posx_start = ft_strchr(map->map_copy[i], 'P') - map->map_copy[i];
 		}
 		i++;
 	}
@@ -158,7 +158,11 @@ int check_map(t_map *map)
 		print_error(2);
 		return (0);
 	}
-	flood_fill(map, map->posx_start, map->posy_start, map->width, map->height);
+	if (is_valid_map(map, map->posx_start, map->posy_start, map->width, map->height) == 0)
+	{
+		print_error(3);
+		return (0);
+	}
 }
 
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+         #
+#    By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/29 21:28:44 by gabo              #+#    #+#              #
-#    Updated: 2024/06/27 00:10:13 by gabo             ###   ########.fr        #
+#    Updated: 2024/07/01 18:51:32 by gsoteldo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,19 +23,15 @@ OBJ = $(SRC:.c=.o)
 
 
 CC = gcc -g
-# CFLAGS = -Wall -Wextra -Werror -MMD
+# CFLAGS = -Wall -Wextra -Werror
 MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
-#LIB = -L. -lmlx -framework OpenGL -framework AppKit
-
-# MLX_LIB = /home/gabo/minilibx-linux/libmlx_Linux.a
 
 all: $(NAME)
 
 
-#$(LIB) $(LIBFT) $(MLX_FLAGS) $(CFLAGS) 
 $(NAME): $(OBJ)  
-	@make -C libft
-	@make -C mlx all
+	@make -s -C libft
+	@make -s -C mlx
 	@cp ./mlx/libmlx_Linux.a .
 	@$(CC) $(SRC) $(MLX_FLAGS)  -L libft -lft -o $(NAME)
 	@echo "Compilation done"
