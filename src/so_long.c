@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:28:35 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/01 18:51:45 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/06/27 11:23:35 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ static int comprobation(int argc, char **argv) {
 		return (1);
 
 }
+
+
+
 
 int main(int argc, char *argv[])
 {
@@ -85,7 +88,7 @@ int main(int argc, char *argv[])
 	mlx = mlx_init();
 	if (!mlx)
 	return (1);
-	win = mlx_new_window(mlx, 1920, 1000, "so_long");
+	win = mlx_new_window(mlx, 500, 500, "so_long");
 	if (!win)
 		return (free(mlx), 1);
 	mlx_loop(mlx);

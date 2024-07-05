@@ -6,7 +6,7 @@
 /*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:42:46 by gabo              #+#    #+#             */
-/*   Updated: 2024/06/27 00:16:03 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/05 14:03:58 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,15 @@
 #define RC "\x1b[0m"
 #define RED "\x1b[31m"
 
-typedef struct
+typedef struct s_size
+{
+	int x;
+	int y;
+	int width;
+	int height;
+}				t_size;
+
+typedef struct s_map
 {
 	int		fd;
 	char 	*file;
@@ -28,11 +36,9 @@ typedef struct
 	int 	n_collectable;
 	int		n_exit;
 	int		n_start;
-	int 	width;
-	int 	height;
-	int 	posx_start;
-	int 	posy_start;
+	t_size	size;
 }				t_map;
+
 
 int check_map(t_map *map);
 

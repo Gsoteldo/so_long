@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:36:58 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/01 18:12:32 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:03:29 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,34 +45,95 @@ int surrounded_by_walls(char **map)
 	return (1);
 }
 
-void flood_fill(t_map *map, int x, int y, int width, int height)
+
+/*
+
+void	map_fill(char **map, t_coords size, t_coords pos)
 {
-	if (x < 0 || x >= width || y  < 0 || y >= height || map->map_copy[x][y] == '1' || map->map_copy[x][y] == 'X')
+	if (pos.y < 1 || pos.y >= size.y - 1 || pos.x < 1 || pos.x >= size.x - 1 
+		|| (map[pos.y][pos.x] != 'P' && map[pos.y][pos.x] != '0' 
+		&& map[pos.y][pos.x] != 'C' && map[pos.y][pos.x] != 'E'))
 		return ;
-	if ((map->map_copy[x + 1][y] == 'E' || map->map_copy[x - 1][y] == 'E') && (map->map_copy[x][y + 1] == '1' || map->map_copy[x][y - 1] == '1'))
+	if (map[pos.y][pos.x] == 'P')
+		map[pos.y][pos.x] = 'p';
+	if (map[pos.y][pos.x] == '0')
+		map[pos.y][pos.x] = 'F';
+	if (map[pos.y][pos.x] == 'C')
+		map[pos.y][pos.x] = 'c';
+	if (map[pos.y][pos.x] == 'E')
+	{
+		map[pos.y][pos.x] = 'e';
 		return ;
-	if ((map->map_copy[x + 1][y] == '1' || map->map_copy[x - 1][y] == '1') && (map->map_copy[x][y + 1] == 'E' || map->map_copy[x][y - 1] == 'E'))
+	}
+	map_fill(map, size, (t_coords){pos.x - 1, pos.y});
+	map_fill(map, size, (t_coords){pos.x, pos.y - 1});
+	map_fill(map, size, (t_coords){pos.x + 1, pos.y});
+	map_fill(map, size, (t_coords){pos.x, pos.y + 1});
+}
+
+*/
+
+// void	fill(char **tab, t_point size, t_point cur, char to_fill)
+// {
+// 	if (cur.y < 0 || cur.y >= size.y || cur.x < 0 || cur.x >= size.x || tab[cur.y][cur.x] != to_fill)
+// 		return;
+// 	tab[cur.y][cur.x] = 'F';
+// 	fill(tab, size, (t_point){cur.x - 1, cur.y}, to_fill);
+// 	fill(tab, size, (t_point){cur.x + 1, cur.y}, to_fill);
+// 	fill(tab, size, (t_point){cur.x, cur.y - 1}, to_fill);
+// 	fill(tab, size, (t_point){cur.x, cur.y + 1}, to_fill);
+// }
+
+// void	flood_fill(char **tab, t_point size, t_point begin)
+// {
+// 	fill(tab, size, begin, tab[begin.y][begin.x]);
+// }
+
+
+
+fill(t_map *map, t_size size, t_size pos)
+{
+	if (pos.x < 1 || pos.x >= size.width || pos.y  < 1 || pos.y >= size.height || map->map_copy[pos.x][pos.y] == '1' || map->map_copy[pos.x][pos.y] == 'X')
 		return ;
-	if (map->map_copy[x][y] == 'C' || map->map_copy[x][y] == 'E')
-		map->map_copy[x][y] = '0';
-	map->map_copy[x][y] = 'X';
-	flood_fill(map, x + 1, y, width, height);
-	flood_fill(map, x - 1, y, width, height);
-	flood_fill(map, x, y + 1, width, height);
-	flood_fill(map, x, y - 1, width, height);
+	if (map->map_copy[pos.y][pos.x] == 'P')
+		map->map_copy[pos.y][pos.x] = 'p';
+	if (map->map_copy[pos.y][pos.x] == '0')
+		map->map_copy[pos.y][pos.x] = 'F';
+	if (map->map_copy[pos.y][pos.x] == 'C')
+		map->map_copy[pos.y][pos.x] = 'c';
+	if (map->map_copy[pos.y][pos.x] == 'E')
+	{
+		map->map_copy[pos.y][pos.x] = 'e';
+		return ;
+	}
+	flood_fill(map, size, (t_size){pos.x - 1, pos.y});
+	flood_fill(map, size, (t_size){pos.x + 1, pos.y});
+	flood_fill(map, size, (t_size){pos.x, pos.y - 1});
+	flood_fill(map, size, (t_size){pos.x, pos.y + 1});
 
 
 }
 
-int is_valid_map(t_map *map, int x, int y, int width, int height)
+void ft_flood_fill(t_map *map, t_size size, t_size pos){
+	fill(map, size, (t_size){pos.x, pos.y});
+}
+
+int is_valid_map(t_map *map)
 {
 	int i;
 
+	i++;
+	ft_flood_fill(map, map->size, (t_size){map->size.x, map->size.y});
 	i = 0;
-	flood_fill(map, x, y, width, height);
 	while (map->map_copy[i])
 	{
-		if (ft_strchr(map->map_copy[i], 'E') != 0 || ft_strchr(map->map_copy[i], 'C') != 0)
+		ft_printf("%s\n", map->map_copy[i]);
+		i++;
+	}
+	i = 0;
+	while (map->map_copy[i])
+	{
+		if ((ft_strchr(map->map_copy[i], 'E') != 0 || ft_strchr(map->map_copy[i], 'C') != 0))
 		{
 			ft_printf("Mapa imposible de resolver\n");
 			return (0);
@@ -97,8 +158,8 @@ void comprobation_map(t_map *map)
 		if (ft_strchr(map->map_copy[i], 'P') != 0)
 		{
 			map->n_start++;
-			map->posy_start = i;
-			map->posx_start = ft_strchr(map->map_copy[i], 'P') - map->map_copy[i];
+			map->size->x = i;
+			map->size->y = ft_strchr(map->map_copy[i], 'P') - map->map_copy[i];
 		}
 		i++;
 	}
@@ -107,8 +168,8 @@ void comprobation_map(t_map *map)
 		ft_printf("Error en el mapa\n");
 		exit(0);
 	}
-	map->height = i;
-	map->width = ft_strlen(map->map_copy[0]);
+	map->size->height = i;
+	map->size->width = ft_strlen(map->map_copy[0]);
 }
 
 int is_rectangle(char **map) {
@@ -158,12 +219,13 @@ int check_map(t_map *map)
 		print_error(2);
 		return (0);
 	}
-	if (is_valid_map(map, map->posx_start, map->posy_start, map->width, map->height) == 0)
+	if (is_valid_map(map) == 0)
 	{
 		print_error(3);
 		return (0);
 	}
 }
+
 
 
 // void comprobation_map(t_map *map, char *line)
