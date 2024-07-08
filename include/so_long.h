@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:42:46 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/05 14:03:58 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/06 19:06:14 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #define RC "\x1b[0m"
 #define RED "\x1b[31m"
 
+
 typedef struct s_size
 {
 	int x;
@@ -26,6 +27,7 @@ typedef struct s_size
 	int width;
 	int height;
 }				t_size;
+
 
 typedef struct s_map
 {
@@ -38,7 +40,6 @@ typedef struct s_map
 	int		n_start;
 	t_size	size;
 }				t_map;
-
 
 int check_map(t_map *map);
 

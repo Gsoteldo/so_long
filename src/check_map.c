@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:36:58 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/05 14:03:29 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/08 20:23:46 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,39 +91,40 @@ void	map_fill(char **map, t_coords size, t_coords pos)
 
 
 
-fill(t_map *map, t_size size, t_size pos)
+void fill(t_map *map, int pos_x, int pos_y)
 {
-	if (pos.x < 1 || pos.x >= size.width || pos.y  < 1 || pos.y >= size.height || map->map_copy[pos.x][pos.y] == '1' || map->map_copy[pos.x][pos.y] == 'X')
-		return ;
-	if (map->map_copy[pos.y][pos.x] == 'P')
-		map->map_copy[pos.y][pos.x] = 'p';
-	if (map->map_copy[pos.y][pos.x] == '0')
-		map->map_copy[pos.y][pos.x] = 'F';
-	if (map->map_copy[pos.y][pos.x] == 'C')
-		map->map_copy[pos.y][pos.x] = 'c';
-	if (map->map_copy[pos.y][pos.x] == 'E')
+	ft_printf("Size: x:%d, y:%d, width:%d, height:%d\n", pos_x, pos_y, map->size.width, map->size.height);
+	if (pos_x < 0 || pos_x >= map->size.width || pos_y < 0 || pos_y >= map->size.height  || map->map_copy[pos_x][pos_y] == '1' || map->map_copy[pos_x][pos_y] == 'X')
 	{
-		map->map_copy[pos.y][pos.x] = 'e';
+		// ft_printf("Entra en el primer if\n");
 		return ;
 	}
-	flood_fill(map, size, (t_size){pos.x - 1, pos.y});
-	flood_fill(map, size, (t_size){pos.x + 1, pos.y});
-	flood_fill(map, size, (t_size){pos.x, pos.y - 1});
-	flood_fill(map, size, (t_size){pos.x, pos.y + 1});
+		
 
+	map->map_copy[pos_x][pos_y] = 'X';
+	fill(map, pos_x + 1, pos_y);
+	fill(map, pos_x - 1, pos_y);
+	fill(map, pos_x, pos_y + 1);
+	fill(map, pos_x, pos_y - 1);
 
 }
 
-void ft_flood_fill(t_map *map, t_size size, t_size pos){
-	fill(map, size, (t_size){pos.x, pos.y});
+void ft_flood_fill(t_map *map, int pos_x, int pos_y)
+{
+	fill(map, pos_x, pos_y);
 }
 
 int is_valid_map(t_map *map)
 {
 	int i;
+	int pos_x;
+	int pos_y;
 
 	i++;
-	ft_flood_fill(map, map->size, (t_size){map->size.x, map->size.y});
+	pos_x = map->size.x;
+	pos_y = map->size.y;
+
+	ft_flood_fill(map, pos_x, pos_y);
 	i = 0;
 	while (map->map_copy[i])
 	{
@@ -158,18 +159,20 @@ void comprobation_map(t_map *map)
 		if (ft_strchr(map->map_copy[i], 'P') != 0)
 		{
 			map->n_start++;
-			map->size->x = i;
-			map->size->y = ft_strchr(map->map_copy[i], 'P') - map->map_copy[i];
+			map->size.x = i;
+			map->size.y = ft_strchr(map->map_copy[i], 'P') - map->map_copy[i];
 		}
 		i++;
 	}
+			ft_printf("Posicion de inicio: x:%d, y:%d\n", map->size.x, map->size.y);
 	if (map->n_collectable == 0 || map->n_exit != 1 || map->n_start != 1)
 	{
 		ft_printf("Error en el mapa\n");
 		exit(0);
 	}
-	map->size->height = i;
-	map->size->width = ft_strlen(map->map_copy[0]);
+	map->size.width = i;
+	map->size.height = ft_strlen(map->map_copy[0]);
+	ft_printf("Size: x:%d, y:%d, width:%d, height:%d\n", map->size.x, map->size.y, map->size.width, map->size.height);
 }
 
 int is_rectangle(char **map) {
@@ -197,7 +200,6 @@ int check_map(t_map *map)
 	char *line;
 	char *aux;
 	
-
 	aux = ft_strdup("");
 	if (map->fd < 0)
 	{
@@ -310,4 +312,3 @@ int check_map(t_map *map)
 	// 	ft_printf("%s", line);
 
 	// }
-
