@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:42:46 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/06 19:06:14 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/17 20:43:20 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 #define RC "\x1b[0m"
 #define RED "\x1b[31m"
 
+#define ESC 65307
+#define CLOSE_BUTTON 17 
+
 
 typedef struct s_size
 {
@@ -28,9 +31,20 @@ typedef struct s_size
 	int height;
 }				t_size;
 
+typedef struct s_image
+{
+	void	*collectable;
+	void	*floor;
+	void	*locked_exit;
+	void	*player;
+	void	*unlocked_exit;
+	void	*wall;
+}				t_image;
 
 typedef struct s_map
 {
+	void *mlx;
+	void *win;
 	int		fd;
 	char 	*file;
 	char	**map;
@@ -39,12 +53,16 @@ typedef struct s_map
 	int		n_exit;
 	int		n_start;
 	t_size	size;
+	t_image img;
 }				t_map;
+
 
 int check_map(t_map *map);
 
 void print_error(int message_flag);
+int close_windows();
 
+void load_images(t_map *map);
 
 
 #endif

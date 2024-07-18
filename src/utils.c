@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 17:35:57 by gsoteldo          #+#    #+#             */
-/*   Updated: 2024/06/27 18:19:37 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/17 17:54:26 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,14 @@ void print_error(int message_flag)
 		ft_putstr_fd("\t[mapa invalido]\n\n", 2);
 	else if (message_flag == 3)
 		ft_putstr_fd("\t[Mapa imposible de resolver]\n\n", 2);
+	else if (message_flag == 4)
+		ft_putstr_fd("\t[No se pudieron cargar las imagenes]\n\n", 2);
 	else
 		ft_putstr_fd("\t[Extension invalida]\n\n", 2);
+	exit(0);
+}
+
+int close_windows()
+{
+	exit(0);
 }

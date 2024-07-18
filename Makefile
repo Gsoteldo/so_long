@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+         #
+#    By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/29 21:28:44 by gabo              #+#    #+#              #
-#    Updated: 2024/07/01 18:51:32 by gsoteldo         ###   ########.fr        #
+#    Updated: 2024/07/17 18:29:41 by gabo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME = so_long
 SRC = ./src/so_long.c \
 		./src/check_map.c \
 		./src/utils.c \
+		./src/window_management.c \
 
 OBJ = $(SRC:.c=.o)
 

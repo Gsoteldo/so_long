@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:28:35 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/01 18:51:45 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/17 20:40:58 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,29 @@ static int comprobation(int argc, char **argv) {
 
 }
 
+void start_game(t_map *map)
+{
+	map->mlx = mlx_init();
+	if (!map->mlx)
+	return ;
+	map->win = mlx_new_window(map->mlx, map->size.width * 64, map->size.height * 64, "so_long");
+	load_images(map);
+	// mlx_hook(map->win, CLOSE_BUTTON, 0, close_windows, &map->mlx);
+	//mlx_hook(map->win, ESC, 0, close_windows, &map->mlx);
+	if (!map->win)
+	{
+		free(map->mlx);
+		return ;
+	}
+	mlx_loop(map->mlx);
+}
+
 int main(int argc, char *argv[])
 {
 	void *mlx;
 	void *win;
 	t_map *map;
-	char *line;
+	// char *line;
 	int i;
 
 	i = 0;
@@ -63,33 +80,28 @@ int main(int argc, char *argv[])
 	if (check_map(map) == 0)
 		return (0);
 
-	ft_printf("Numero de coleccionables: %d\n", map->n_collectable);
-	ft_printf("Numero de salidas: %d\n", map->n_exit);
-	ft_printf("Numero de entradas: %d\n", map->n_start);
+	// ft_printf("Numero de coleccionables: %d\n", map->n_collectable);
+	// ft_printf("Numero de salidas: %d\n", map->n_exit);
+	// ft_printf("Numero de entradas: %d\n", map->n_start);
 	
-	ft_printf("Mapa original: \n");
-	while (map->map[i])
-	{
-		ft_printf("%s\n", map->map[i]);
-		i++;
-	}
-	ft_printf("\n");
-	i = 0;
-	ft_printf("Mapa comprobacion: \n");
-	while (map->map_copy[i])
-	{
-		ft_printf("%s\n", map->map_copy[i]);
-		i++;
-	}
+	// ft_printf("Mapa original: \n");
+	// while (map->map[i])
+	// {
+	// 	ft_printf("%s\n", map->map[i]);
+	// 	i++;
+	// }
+	// ft_printf("\n");
+	// i = 0;
+	// ft_printf("Mapa comprobacion: \n");
+	// while (map->map_copy[i])
+	// {
+	// 	ft_printf("%s\n", map->map_copy[i]);
+	// 	i++;
+	// }
+	start_game(map);
 
-	mlx = mlx_init();
-	if (!mlx)
-	return (1);
-	win = mlx_new_window(mlx, 1920, 1000, "so_long");
-	if (!win)
-		return (free(mlx), 1);
-	mlx_loop(mlx);
-	close(map->fd);
-	free(map);
-	return 0;
+
+	// close(map->fd);
+	// free(map);
+	// return 0;
 }
