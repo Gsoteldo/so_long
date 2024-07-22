@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:36:58 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/17 01:14:15 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/22 16:06:59 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,10 @@ void comprobation_map(t_map *map)
 {
 	int i;
 
+	map->n_collectable = 0;
+	map->n_exit = 0;
+	map->n_start = 0;
+
 	i = 0;
 	while(map->map_copy[i] != NULL)
 	{
@@ -107,6 +111,9 @@ void comprobation_map(t_map *map)
 		}
 		i++;
 	}
+	ft_printf("Numero de coleccionables: %d\n", map->n_collectable);
+	ft_printf("Numero de salidas: %d\n", map->n_exit);
+	ft_printf("Numero de entradas: %d\n", map->n_start);
 	if (map->n_collectable == 0 || map->n_exit != 1 || map->n_start != 1)
 	{
 		ft_printf("Error en el mapa\n");

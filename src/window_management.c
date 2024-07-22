@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window_management.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 17:02:43 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/17 20:56:05 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/22 16:41:07 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ void load_sprites(t_map *map)
 {
 	int width;
 	int height;
+
+	width = 50;
+	height = 50;
 
 	if (!map->mlx || !map->win || !map)
 		print_error(4);		
@@ -53,10 +56,10 @@ void load_images(t_map *map)
 	ft_memset(&(map->img), 0, sizeof(t_image));
 	//map->img = (t_image)ft_calloc(1, sizeof(t_image));
 	load_sprites(map);
-	while (i != map->size.height)
+	while (map->map[i])
 	{
 		j = 0;
-		while (j != map->size.width)
+		while (map->map[i][j])
 		{
 			if (map->map[i][j] == '1')
 				mlx_put_image_to_window(map->mlx, map->win, map->img.wall, j * 50, i * 50);
