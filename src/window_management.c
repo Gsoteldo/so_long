@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window_management.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 17:02:43 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/22 16:41:07 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:05:12 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ void load_sprites(t_map *map)
 	int width;
 	int height;
 
-	width = 50;
-	height = 50;
+	width = 80;
+	height = 80;
 
 	if (!map->mlx || !map->win || !map)
 		print_error(4);		
 	map->img.collectable = mlx_xpm_file_to_image(map->mlx, "./images/collectable.xpm", &width, &height);
 	map->img.floor = mlx_xpm_file_to_image(map->mlx, "./images/floor.xpm", &width, &height);
-	map->img.locked_exit = mlx_xpm_file_to_image(map->mlx, "./images/locked_exit.xpm", &width, &height);
+	map->img.locked_exit = mlx_xpm_file_to_image(map->mlx, "./images/locked_door.xpm", &width, &height);
 	map->img.player = mlx_xpm_file_to_image(map->mlx, "./images/player.xpm", &width, &height);
-	map->img.unlocked_exit = mlx_xpm_file_to_image(map->mlx, "./images/unlocked_exit.xpm", &width, &height);
+	map->img.unlocked_exit = mlx_xpm_file_to_image(map->mlx, "./images/unlocked_door.xpm", &width, &height);
 	map->img.wall = mlx_xpm_file_to_image(map->mlx, "./images/wall.xpm", &width, &height);
 	if (!map->img.collectable || !map->img.floor || !map->img.locked_exit || !map->img.player || !map->img.unlocked_exit || !map->img.wall)
 	{
@@ -62,15 +62,15 @@ void load_images(t_map *map)
 		while (map->map[i][j])
 		{
 			if (map->map[i][j] == '1')
-				mlx_put_image_to_window(map->mlx, map->win, map->img.wall, j * 50, i * 50);
+				mlx_put_image_to_window(map->mlx, map->win, map->img.wall, j * 80, i * 80);
 			else if (map->map[i][j] == '0')
-				mlx_put_image_to_window(map->mlx, map->win, map->img.floor, j * 50, i * 50);
+				mlx_put_image_to_window(map->mlx, map->win, map->img.floor, j * 80, i * 80);
 			else if (map->map[i][j] == 'C')
-				mlx_put_image_to_window(map->mlx, map->win, map->img.collectable, j * 50, i * 50);
+				mlx_put_image_to_window(map->mlx, map->win, map->img.collectable, j * 80, i * 80);
 			else if (map->map[i][j] == 'E')
-				mlx_put_image_to_window(map->mlx, map->win, map->img.locked_exit, j *50, i * 50);
+				mlx_put_image_to_window(map->mlx, map->win, map->img.locked_exit, j * 80, i * 80);
 			else if (map->map[i][j] == 'P')
-				mlx_put_image_to_window(map->mlx, map->win, map->img.player, j * 50,  i * 50);
+				mlx_put_image_to_window(map->mlx, map->win, map->img.player, j * 80,  i * 80);
 			j++;
 		}
 		i++;

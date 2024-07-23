@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:28:35 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/22 16:13:10 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:39:08 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void start_game(t_map *map)
 	map->mlx = mlx_init();
 	if (!map->mlx)
 	return ;
-	map->win = mlx_new_window(map->mlx, map->size.height * 50, map->size.width * 50, "so_long");
+	map->win = mlx_new_window(map->mlx, map->size.height * 80, map->size.width * 80, "so_long");
 	load_images(map);
 	mlx_hook(map->win, CLOSE_BUTTON, 0, close_windows, &map->mlx);
 	//mlx_hook(map->win, ESC, 0, close_windows, &map->mlx);
