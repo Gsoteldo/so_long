@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:42:46 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/17 20:43:20 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/23 21:13:13 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@
 
 #define ESC 65307
 #define CLOSE_BUTTON 17 
+#define W_KEY 119
+#define A_KEY 97
+#define S_KEY 115
+#define D_KEY 100
+#define UP_KEY 65362
+#define DOWN_KEY 65364
+#define LEFT_KEY 65361
+#define RIGHT_KEY 65363
+#define SIZE 80
 
 
 typedef struct s_size
@@ -63,6 +72,8 @@ void print_error(int message_flag);
 int close_windows();
 
 void load_images(t_map *map);
+
+int movements(int key, t_map *map);
 
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:28:35 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/23 16:39:08 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/23 22:07:38 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,24 @@ static int comprobation(int argc, char **argv) {
 
 }
 
+int key_view(int key, void * param)
+{
+	t_map *map_copy;
+
+	map_copy = (t_map *)param;
+	ft_printf("Key: %d\n", key);	
+	return (0);
+}
+
 void start_game(t_map *map)
 {
 	map->mlx = mlx_init();
 	if (!map->mlx)
 	return ;
-	map->win = mlx_new_window(map->mlx, map->size.height * 80, map->size.width * 80, "so_long");
+	map->win = mlx_new_window(map->mlx, map->size.height * SIZE, map->size.width * SIZE, "so_long");
 	load_images(map);
 	mlx_hook(map->win, CLOSE_BUTTON, 0, close_windows, &map->mlx);
+	mlx_key_hook(map->win, movements, map);
 	//mlx_hook(map->win, ESC, 0, close_windows, &map->mlx);
 	if (!map->win)
 	{

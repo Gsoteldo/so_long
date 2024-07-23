@@ -6,7 +6,7 @@
 /*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:36:58 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/22 16:06:59 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/23 22:24:08 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void flood_fill(t_map *map, int pos_x, int pos_y)
 		|| map->map_copy[pos_x][pos_y] == '1'
 		|| map->map_copy[pos_x][pos_y] == 'X')
 		return ;
-		
+
+
 
 	map->map_copy[pos_x][pos_y] = 'X';
 	flood_fill(map, pos_x + 1, pos_y);
@@ -78,10 +79,7 @@ int is_valid_map(t_map *map)
 	while (map->map_copy[i])
 	{
 		if ((ft_strchr(map->map_copy[i], 'E') != 0 || ft_strchr(map->map_copy[i], 'C') != 0))
-		{
-			ft_printf("Mapa imposible de resolver\n");
-			return (0);
-		}
+			print_error(3);
 		i++;
 	}
 	return (1);
@@ -100,7 +98,10 @@ void comprobation_map(t_map *map)
 	while(map->map_copy[i] != NULL)
 	{
 		if (ft_strchr(map->map_copy[i], 'C') != 0)
+		{
 			map->n_collectable++;
+			ft_printf("%d\n", map->n_collectable);
+		}
 		if (ft_strchr(map->map_copy[i], 'E') != 0)
 			map->n_exit++;
 		if (ft_strchr(map->map_copy[i], 'P') != 0)
@@ -111,14 +112,8 @@ void comprobation_map(t_map *map)
 		}
 		i++;
 	}
-	ft_printf("Numero de coleccionables: %d\n", map->n_collectable);
-	ft_printf("Numero de salidas: %d\n", map->n_exit);
-	ft_printf("Numero de entradas: %d\n", map->n_start);
 	if (map->n_collectable == 0 || map->n_exit != 1 || map->n_start != 1)
-	{
-		ft_printf("Error en el mapa\n");
-		exit(0);
-	}
+		print_error(2);
 	map->size.width = i;
 	map->size.height = ft_strlen(map->map_copy[0]);
 }

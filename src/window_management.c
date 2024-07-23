@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window_management.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 17:02:43 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/23 17:05:12 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/23 20:34:31 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void load_sprites(t_map *map)
 	int width;
 	int height;
 
-	width = 80;
-	height = 80;
+	// width = 80;
+	// height = 80;
 
 	if (!map->mlx || !map->win || !map)
 		print_error(4);		
@@ -62,15 +62,15 @@ void load_images(t_map *map)
 		while (map->map[i][j])
 		{
 			if (map->map[i][j] == '1')
-				mlx_put_image_to_window(map->mlx, map->win, map->img.wall, j * 80, i * 80);
+				mlx_put_image_to_window(map->mlx, map->win, map->img.wall, j * SIZE, i * SIZE);
 			else if (map->map[i][j] == '0')
-				mlx_put_image_to_window(map->mlx, map->win, map->img.floor, j * 80, i * 80);
+				mlx_put_image_to_window(map->mlx, map->win, map->img.floor, j * SIZE, i * SIZE);
 			else if (map->map[i][j] == 'C')
-				mlx_put_image_to_window(map->mlx, map->win, map->img.collectable, j * 80, i * 80);
+				mlx_put_image_to_window(map->mlx, map->win, map->img.collectable, j * SIZE, i * SIZE);
 			else if (map->map[i][j] == 'E')
-				mlx_put_image_to_window(map->mlx, map->win, map->img.locked_exit, j * 80, i * 80);
+				mlx_put_image_to_window(map->mlx, map->win, map->img.locked_exit, j * SIZE, i * SIZE);
 			else if (map->map[i][j] == 'P')
-				mlx_put_image_to_window(map->mlx, map->win, map->img.player, j * 80,  i * 80);
+				mlx_put_image_to_window(map->mlx, map->win, map->img.player, j * SIZE,  i * SIZE);
 			j++;
 		}
 		i++;
