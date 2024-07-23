@@ -6,7 +6,7 @@
 /*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:36:58 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/23 22:24:08 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/23 22:25:21 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,12 @@ void comprobation_map(t_map *map)
 	map->size.width = i;
 	map->size.height = ft_strlen(map->map_copy[0]);
 }
+
+
+
+
+
+
 
 int is_rectangle(char **map) {
 
