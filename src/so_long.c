@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:28:35 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/23 22:07:38 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/24 00:18:13 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int main(int argc, char *argv[])
 	int i;
 
 	i = 0;
+	initialize_map(&map);
 	if (comprobation(argc, argv) == 0)
 		return (0);
 	// map = (t_map )ft_calloc(1, sizeof(t_map));
@@ -89,29 +90,15 @@ int main(int argc, char *argv[])
 
 	if (check_map(&map) == 0)
 		return (0);
-
+	
 	ft_printf("Numero de coleccionables: %d\n", map.n_collectable);
 	ft_printf("Numero de salidas: %d\n", map.n_exit);
 	ft_printf("Numero de entradas: %d\n", map.n_start);
 	
-	// ft_printf("Mapa original: \n");
-	// while (map->map[i])
-	// {
-	// 	ft_printf("%s\n", map->map[i]);
-	// 	i++;
-	// }
-	// ft_printf("\n");
-	// i = 0;
-	// ft_printf("Mapa comprobacion: \n");
-	// while (map->map_copy[i])
-	// {
-	// 	ft_printf("%s\n", map->map_copy[i]);
-	// 	i++;
-	// }
 	start_game(&map);
 
 
-	// close(map->fd);
-	// free(map);
-	// return 0;
+	close(map.fd);
+	free_map(&map);
+	return 0;
 }

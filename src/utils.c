@@ -6,7 +6,7 @@
 /*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 17:35:57 by gsoteldo          #+#    #+#             */
-/*   Updated: 2024/07/17 17:54:26 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/24 00:16:57 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,40 @@ void print_error(int message_flag)
 int close_windows()
 {
 	exit(0);
+}
+
+void initialize_map(t_map *map)
+{
+	map->size.x = 0;
+	map->size.y = 0;
+	map->n_collectable = 0;
+	map->n_exit = 0;
+	map->map = NULL;
+	map->map_copy = NULL;
+	map->mlx = NULL;
+	map->win = NULL;
+	ft_memset(&(map->img), 0, sizeof(t_image));
+}
+
+void free_map(t_map *map)
+{
+	int i;
+
+	i = 0;
+	while (map->map[i])
+	{
+		free(map->map[i]);
+		free(map->map_copy[i]);
+		i++;
+	}
+	free(map->map);
+	free(map->map_copy);
+	free(map->img.collectable);
+	free(map->img.floor);
+	free(map->img.locked_exit);
+	free(map->img.player);
+	free(map->img.unlocked_exit);
+	free(map->img.wall);
+	free(map->mlx);
+	free(map->win);
 }

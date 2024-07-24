@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window_management.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 17:02:43 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/23 20:34:31 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/23 23:44:25 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,11 @@ void load_images(t_map *map)
 			else if (map->map[i][j] == 'C')
 				mlx_put_image_to_window(map->mlx, map->win, map->img.collectable, j * SIZE, i * SIZE);
 			else if (map->map[i][j] == 'E')
+			{
 				mlx_put_image_to_window(map->mlx, map->win, map->img.locked_exit, j * SIZE, i * SIZE);
+				if (map->n_collectable == 0)
+					mlx_put_image_to_window(map->mlx, map->win, map->img.unlocked_exit, j * SIZE, i * SIZE);
+			}
 			else if (map->map[i][j] == 'P')
 				mlx_put_image_to_window(map->mlx, map->win, map->img.player, j * SIZE,  i * SIZE);
 			j++;

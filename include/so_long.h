@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:42:46 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/23 21:13:13 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/24 00:17:46 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ typedef struct s_map
 int check_map(t_map *map);
 
 void print_error(int message_flag);
+void initialize_map(t_map *map);
+void free_map(t_map *map);
 int close_windows();
 
 void load_images(t_map *map);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 20:35:56 by gsoteldo          #+#    #+#             */
-/*   Updated: 2024/07/23 21:31:21 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/24 00:05:54 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void right_movement(t_map *map)
 		if (map->n_collectable == 0)
 			exit(0);
 		else
-				return ;
+			return ;
 	}
 	if (map->map[map->size.x][map->size.y + 1] == 'C')
 	{
@@ -101,8 +101,6 @@ void right_movement(t_map *map)
 
 int movements(int key, t_map *map)
 {
-	// ft_printf("%d\n",map->size.x);
-	// ft_printf("%d\n",map->size.y);
 	ft_printf("%d\n",map->n_collectable);
 	if (key == W_KEY ||  key == UP_KEY)
 	{

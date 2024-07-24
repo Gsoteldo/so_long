@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:36:58 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/23 22:25:21 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/24 00:25:48 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,27 +89,30 @@ int is_valid_map(t_map *map)
 void comprobation_map(t_map *map)
 {
 	int i;
-
-	map->n_collectable = 0;
-	map->n_exit = 0;
-	map->n_start = 0;
+	int j;
 
 	i = 0;
 	while(map->map_copy[i] != NULL)
 	{
-		if (ft_strchr(map->map_copy[i], 'C') != 0)
+		j = 0;
+		while (map->map_copy[i][j] != '\0')
+		{
+		if (map->map_copy[i][j] == 'C')
 		{
 			map->n_collectable++;
 			ft_printf("%d\n", map->n_collectable);
 		}
-		if (ft_strchr(map->map_copy[i], 'E') != 0)
+		if (map->map_copy[i][j] == 'E')
 			map->n_exit++;
-		if (ft_strchr(map->map_copy[i], 'P') != 0)
+		if (map->map_copy[i][j] == 'P')
 		{
 			map->n_start++;
 			map->size.x = i;
 			map->size.y = ft_strchr(map->map_copy[i], 'P') - map->map_copy[i];
 		}
+			j++;
+		}
+		
 		i++;
 	}
 	if (map->n_collectable == 0 || map->n_exit != 1 || map->n_start != 1)
@@ -117,12 +120,6 @@ void comprobation_map(t_map *map)
 	map->size.width = i;
 	map->size.height = ft_strlen(map->map_copy[0]);
 }
-
-
-
-
-
-
 
 int is_rectangle(char **map) {
 
@@ -148,8 +145,10 @@ int check_map(t_map *map)
 {
 	char *line;
 	char *aux;
+	char *temp;
 	
 	aux = ft_strdup("");
+	line = NULL;
 	if (map->fd < 0)
 	{
 		print_error(1);
@@ -159,12 +158,17 @@ int check_map(t_map *map)
 	line = get_next_line(map->fd);
 	while (line != NULL)
 	{
-		aux = ft_strjoin(aux, line);
-		line = get_next_line(map->fd);
+		temp = aux;
+        aux = ft_strjoin(aux, line);
+        free(temp);
+        free(line);
+        line = get_next_line(map->fd);
 	}
+	free(line);
 	map->map_copy = ft_split(aux, '\n');
 	map->map = ft_split(aux, '\n');
 	comprobation_map(map);
+	free(aux);
 	if (is_rectangle(map->map_copy) == 0 || surrounded_by_walls(map->map_copy) == 0)
 	{
 		print_error(2);
