@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:36:58 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/24 00:25:48 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/24 18:40:05 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void comprobation_map(t_map *map)
 		if (map->map_copy[i][j] == 'C')
 		{
 			map->n_collectable++;
-			ft_printf("%d\n", map->n_collectable);
+			// ft_printf("%d\n", map->n_collectable);
 		}
 		if (map->map_copy[i][j] == 'E')
 			map->n_exit++;
@@ -115,8 +115,14 @@ void comprobation_map(t_map *map)
 		
 		i++;
 	}
+	// ft_printf("%d\n", map->n_collectable);
+	// ft_printf("%d\n", map->n_exit);
+	// ft_printf("%d\n", map->n_start);
 	if (map->n_collectable == 0 || map->n_exit != 1 || map->n_start != 1)
+	{
+		// ft_printf("holaaaaaaaaaaaaaaaaaaaa\n");
 		print_error(2);
+	}
 	map->size.width = i;
 	map->size.height = ft_strlen(map->map_copy[0]);
 }

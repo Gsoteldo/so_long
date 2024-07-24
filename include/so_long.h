@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:42:46 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/24 00:17:46 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/24 22:28:42 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 #define RC "\x1b[0m"
 #define RED "\x1b[31m"
+#define GREEN "\x1b[32m"
 
 #define ESC 65307
 #define CLOSE_BUTTON 17 
@@ -61,6 +62,8 @@ typedef struct s_map
 	int 	n_collectable;
 	int		n_exit;
 	int		n_start;
+	int 	n_movements;
+	int 	exit_flag;
 	t_size	size;
 	t_image img;
 }				t_map;
@@ -77,5 +80,7 @@ void load_images(t_map *map);
 
 int movements(int key, t_map *map);
 
+void lore_begin();
+void lore_end();
 
 #endif

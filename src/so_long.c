@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:28:35 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/24 00:18:13 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/24 22:38:11 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,19 @@ void start_game(t_map *map)
 	map->mlx = mlx_init();
 	if (!map->mlx)
 	return ;
-	map->win = mlx_new_window(map->mlx, map->size.height * SIZE, map->size.width * SIZE, "so_long");
+	map->win = mlx_new_window(map->mlx, map->size.height * SIZE, map->size.width * SIZE, "La leyenda de Sombra");
 	load_images(map);
-	mlx_hook(map->win, CLOSE_BUTTON, 0, close_windows, &map->mlx);
+	mlx_hook(map->win, CLOSE_BUTTON, 1L<<0, close_windows, &map);
+	// mlx_hook(map->win, ESC, 0, close_windows, &map->mlx);
 	mlx_key_hook(map->win, movements, map);
-	//mlx_hook(map->win, ESC, 0, close_windows, &map->mlx);
 	if (!map->win)
 	{
-		free(map->mlx);
+		free_map(map);
 		return ;
 	}
 	mlx_loop(map->mlx);
+
+	return ;
 }
 
 int main(int argc, char *argv[])
@@ -80,6 +82,8 @@ int main(int argc, char *argv[])
 	int i;
 
 	i = 0;
+
+	// ft_printf("%d", map.n_movements);
 	initialize_map(&map);
 	if (comprobation(argc, argv) == 0)
 		return (0);
@@ -91,14 +95,20 @@ int main(int argc, char *argv[])
 	if (check_map(&map) == 0)
 		return (0);
 	
+
+
 	ft_printf("Numero de coleccionables: %d\n", map.n_collectable);
 	ft_printf("Numero de salidas: %d\n", map.n_exit);
 	ft_printf("Numero de entradas: %d\n", map.n_start);
-	
+
+	lore_begin();
+
+
 	start_game(&map);
 
 
-	close(map.fd);
+	lore_end();
 	free_map(&map);
+	close(map.fd);
 	return 0;
 }
