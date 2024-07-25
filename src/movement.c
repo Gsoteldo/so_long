@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 20:35:56 by gsoteldo          #+#    #+#             */
-/*   Updated: 2024/07/25 14:33:16 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/25 23:07:33 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
-
-
 
 void up_movement(t_map *map)
 {
@@ -133,6 +131,11 @@ int movements(int key, t_map *map)
 		down_movement(map);
 	else if (key == D_KEY || key == RIGHT_KEY)
 		right_movement(map);
+	else if (key == ESC)
+	{
+		free_map(map);
+		exit(0);
+	}
 	if (map->exit_flag == 1)
 		mlx_loop_end(map->mlx);
 	

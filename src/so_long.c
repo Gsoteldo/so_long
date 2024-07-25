@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:28:35 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/25 13:59:03 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/25 23:02:01 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,45 @@ static int comprobation(int argc, char **argv) {
 
 void start_game(t_map *map)
 {
+	/*int i;
+
+	i = 0;*/
+	ft_printf("Start game\n");
 	map->mlx = mlx_init();
+	ft_printf("Mlx: %p\n", map->mlx);
 	if (!map->mlx)
-	return ;
+	{
+		printf("error en la mlx\n");
+		//free_map(map);
+		/*if (map->map && map->map_copy)
+		{
+			while (map->map[i])
+			{
+				free(map->map[i]);
+				free(map->map_copy[i]);
+				i++;
+			}
+			free(map->map);
+			free(map->map_copy);
+		}
+		if (map->file)
+			free(map->file);*/
+		return ;
+	}
 	map->win = mlx_new_window(map->mlx, map->size.height * SIZE, map->size.width * SIZE, "La leyenda de Sombra");
-	load_images(map);
-	mlx_hook(map->win, CLOSE_BUTTON, 1L<<0, close_windows, &map);
-	// mlx_hook(map->win, ESC, 0, close_windows, &map->mlx);
-	mlx_key_hook(map->win, movements, map);
 	if (!map->win)
 	{
+		printf("no crea la ventana\n");
 		free_map(map);
 		return ;
 	}
+	load_images(map);
+	mlx_hook(map->win, CLOSE_BUTTON, 1L<<0, close_windows, map);
+	// mlx_hook(map->win, ESC, 0, close_windows, &map->mlx);
+	mlx_key_hook(map->win, movements, map);
 	mlx_loop(map->mlx);
 
-	return ;
+	//return ;
 }
 
 int main(int argc, char *argv[])
@@ -100,9 +123,8 @@ int main(int argc, char *argv[])
 
 	start_game(&map);
 
-
+	
 	lore_end();
 	free_map(&map);
-	close(map.fd);
 	return 0;
 }

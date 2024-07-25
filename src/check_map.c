@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:36:58 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/25 14:00:04 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/25 19:08:56 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ int check_map(t_map *map)
 	free(line);
 	map->map_copy = ft_split(aux, '\n');
 	map->map = ft_split(aux, '\n');
+	close(map->fd);
 	comprobation_map(map);
 	free(aux);
 	if (is_rectangle(map->map_copy) == 0 || surrounded_by_walls(map->map_copy) == 0)

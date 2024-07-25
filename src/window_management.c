@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window_management.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 17:02:43 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/23 23:44:25 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/25 23:03:30 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@ void load_sprites(t_map *map)
 	int width;
 	int height;
 
-	// width = 80;
-	// height = 80;
+	width = 80;
+	height = 80;
 
 	if (!map->mlx || !map->win || !map)
-		print_error(4);		
+	{
+		free_map(map);
+		print_error(4);
+	}
 	map->img.collectable = mlx_xpm_file_to_image(map->mlx, "./images/collectable.xpm", &width, &height);
 	map->img.floor = mlx_xpm_file_to_image(map->mlx, "./images/floor.xpm", &width, &height);
 	map->img.locked_exit = mlx_xpm_file_to_image(map->mlx, "./images/locked_door.xpm", &width, &height);
@@ -30,14 +33,15 @@ void load_sprites(t_map *map)
 	map->img.wall = mlx_xpm_file_to_image(map->mlx, "./images/wall.xpm", &width, &height);
 	if (!map->img.collectable || !map->img.floor || !map->img.locked_exit || !map->img.player || !map->img.unlocked_exit || !map->img.wall)
 	{
+		free_map(map);
 		print_error(4);
         // Asegúrate de liberar recursos si hay un error
-        mlx_destroy_image(map->mlx, map->img.collectable);
-        mlx_destroy_image(map->mlx, map->img.floor);
-        mlx_destroy_image(map->mlx, map->img.locked_exit);
-        mlx_destroy_image(map->mlx, map->img.player);
-        mlx_destroy_image(map->mlx, map->img.unlocked_exit);
-        mlx_destroy_image(map->mlx, map->img.wall);
+        // mlx_destroy_image(map->mlx, map->img.collectable);
+        // mlx_destroy_image(map->mlx, map->img.floor);
+        // mlx_destroy_image(map->mlx, map->img.locked_exit);
+        // mlx_destroy_image(map->mlx, map->img.player);
+        // mlx_destroy_image(map->mlx, map->img.unlocked_exit);
+        // mlx_destroy_image(map->mlx, map->img.wall);
 	}
 }
 
@@ -50,12 +54,14 @@ void load_images(t_map *map)
 	j = 0;
 	if (!map->mlx || !map->win || !map)
 	{
+		free_map(map);
 		print_error(4);
 	}
 		
-	ft_memset(&(map->img), 0, sizeof(t_image));
+	//ft_memset(&(map->img), 0, sizeof(t_image));
 	//map->img = (t_image)ft_calloc(1, sizeof(t_image));
-	load_sprites(map);
+	if (!map->img.collectable || !map->img.floor || !map->img.locked_exit || !map->img.player || !map->img.unlocked_exit || !map->img.wall)
+		load_sprites(map);
 	while (map->map[i])
 	{
 		j = 0;

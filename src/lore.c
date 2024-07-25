@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lore.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 22:08:54 by gsoteldo          #+#    #+#             */
-/*   Updated: 2024/07/25 14:31:59 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/25 18:54:26 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void lore_thinks(t_map *map)
 	ft_printf("\n");
 	ft_printf("Al acercarse a la puerta de salida, Sombra se detuvo un instante y pensó:\n");
 	ft_printf("\n");
-	ft_printf("No puedo irme aún, tengo que terminar lo que empecé, aun faltan %d monedas\n", map->n_collectable);
+	ft_printf("\"No puedo irme aún, tengo que terminar lo que empecé, aun faltan %d monedas\"\n", map->n_collectable);
 	ft_printf("\n");
 	ft_printf("-------------------------------------------------------------------------------\n");
 	ft_printf("\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:42:46 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/25 14:32:45 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/25 20:27:50 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ typedef struct s_image
 
 typedef struct s_map
 {
-	void *mlx;
-	void *win;
+	void	*mlx;
+	void	*win;
 	int		fd;
 	char 	*file;
 	char	**map;
@@ -74,7 +74,7 @@ int check_map(t_map *map);
 void print_error(int message_flag);
 void initialize_map(t_map *map);
 void free_map(t_map *map);
-int close_windows();
+int close_windows(t_map *map);
 
 void load_images(t_map *map);
 
