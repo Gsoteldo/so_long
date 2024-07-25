@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:28:35 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/24 22:38:11 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:59:03 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ static int comprobation(int argc, char **argv) {
 
 }
 
-int key_view(int key, void * param)
-{
-	t_map *map_copy;
+// int key_view(int key, void * param)
+// {
+// 	t_map *map_copy;
 
-	map_copy = (t_map *)param;
-	ft_printf("Key: %d\n", key);	
-	return (0);
-}
+// 	map_copy = (t_map *)param;
+// 	ft_printf("Key: %d\n", key);	
+// 	return (0);
+// }
 
 void start_game(t_map *map)
 {
@@ -75,14 +75,8 @@ void start_game(t_map *map)
 
 int main(int argc, char *argv[])
 {
-	void *mlx;
-	void *win;
 	t_map map;
 	// char *line;
-	int i;
-
-	i = 0;
-
 	// ft_printf("%d", map.n_movements);
 	initialize_map(&map);
 	if (comprobation(argc, argv) == 0)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+         #
+#    By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/29 21:28:44 by gabo              #+#    #+#              #
-#    Updated: 2024/07/24 22:21:49 by gsoteldo         ###   ########.fr        #
+#    Updated: 2024/07/25 13:57:18 by gabo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,8 @@ OBJ = $(SRC:.c=.o)
 
 
 
-CC = gcc -g3 -fsanitize=address 
-# CFLAGS = -Wall -Wextra -Werror
+CC = gcc -g3 -fsanitize=address,leak
+CFLAGS = -Wall -Wextra -Werror
 MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 
 all: $(NAME)
@@ -36,7 +36,7 @@ $(NAME): $(OBJ)
 	@make -s -C libft
 	@make -s -C mlx
 	@cp ./mlx/libmlx_Linux.a .
-	@$(CC) $(SRC) $(MLX_FLAGS)  -L libft -lft -o $(NAME)
+	@$(CC) $(CFLAGS) $(SRC) $(MLX_FLAGS)  -L libft -lft -o $(NAME)
 	@echo "Compilation done"
 
 clean:

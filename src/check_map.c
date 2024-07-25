@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:36:58 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/24 18:40:05 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:00:04 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int surrounded_by_walls(char **map)
 			j = 0;
 		while(map[i][j])
 		{
-			if (i == 0 || i == size - 1 || j == 0 || j == ft_strlen(map[i]) - 1)
+			if (i == 0 || i == size - 1 || j == 0 || (size_t)j == ft_strlen(map[i]) - 1)
 			{
 				if (map[i][j] != '1')
 				{
@@ -185,4 +185,5 @@ int check_map(t_map *map)
 		print_error(3);
 		return (0);
 	}
+	return (1);
 }

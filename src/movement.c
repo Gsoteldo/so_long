@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 20:35:56 by gsoteldo          #+#    #+#             */
-/*   Updated: 2024/07/24 22:33:12 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:33:16 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void up_movement(t_map *map)
 			return ;
 		}
 		else
-				return ;
+		{
+			lore_thinks(map);
+			return ;
+		}
 	}
 	if (map->map[map->size.x - 1][map->size.y] == 'C')
 		map->n_collectable--;
@@ -50,7 +53,10 @@ void down_movement(t_map *map)
 			return ;
 		}
 		else
-				return ;
+{
+			lore_thinks(map);
+			return ;
+		}
 	}
 	if (map->map[map->size.x + 1][map->size.y] == 'C')
 		map->n_collectable--;
@@ -74,7 +80,10 @@ void left_movement(t_map *map)
 			return ;
 		}
 		else
+		{
+			lore_thinks(map);
 			return ;
+		}
 	}
 	if (map->map[map->size.x][map->size.y - 1] == 'C')
 		map->n_collectable--;
@@ -98,7 +107,10 @@ void right_movement(t_map *map)
 			return ;
 		}
 		else
+		{
+			lore_thinks(map);
 			return ;
+		}
 	}
 	if (map->map[map->size.x][map->size.y + 1] == 'C')
 		map->n_collectable--;

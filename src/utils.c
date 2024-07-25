@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 17:35:57 by gsoteldo          #+#    #+#             */
-/*   Updated: 2024/07/24 18:46:39 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:20:25 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,6 @@ void print_error(int message_flag)
 	exit(0);
 }
 
-int close_windows(t_map *map)
-{
-	
-	exit(0);
-}
 
 void initialize_map(t_map *map)
 {
@@ -66,9 +61,15 @@ void destroy_map(t_map *map)
 	if (map->img.wall)
 		mlx_destroy_image(map->mlx, map->img.wall);
 	if (map->win)
-		mlx_destroy_window(map->mlx, map->win);
+		{
+			mlx_destroy_window(map->mlx, map->win);
+			// free(map->win);
+		}
 	if (map->mlx)
+	{
 		mlx_destroy_display(map->mlx);
+		free(map->mlx);
+	}
 }
 
 
@@ -83,15 +84,13 @@ void free_map(t_map *map)
 		free(map->map_copy[i]);
 		i++;
 	}
-	destroy_map(map);
 	free(map->map);
 	free(map->map_copy);
-	free(map->img.collectable);
-	free(map->img.floor);
-	free(map->img.locked_exit);
-	free(map->img.player);
-	free(map->img.unlocked_exit);
-	free(map->img.wall);
-	free(map->mlx);
-	free(map->win);
+	destroy_map(map);
+}
+
+int close_windows(t_map *map)
+{
+	free_map(map);
+	exit(0);
 }
