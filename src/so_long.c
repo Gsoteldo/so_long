@@ -6,7 +6,7 @@
 /*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:28:35 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/25 23:02:01 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/25 23:12:42 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void start_game(t_map *map)
 	//return ;
 }
 
+//Comentando
 int main(int argc, char *argv[])
 {
 	t_map map;
