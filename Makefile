@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+         #
+#    By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/29 21:28:44 by gabo              #+#    #+#              #
-#    Updated: 2024/07/26 00:22:03 by gabo             ###   ########.fr        #
+#    Updated: 2024/07/29 18:45:08 by gsoteldo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,11 @@ NAME = so_long
 
 SRC = ./src/so_long.c \
 		./src/check_map.c \
+		./src/comprobation.c \
+		./src/lore.c \
+		./src/movement.c \
 		./src/utils.c \
 		./src/window_management.c \
-		./src/movement.c \
-		./src/lore.c \
 
 OBJ = $(SRC:.c=.o)
 
@@ -43,6 +44,9 @@ git:
 	git add *
 	git commit
 	git push
+
+norm:
+	norminette $(SRC) ./include/so_long.h
 
 clean:
 	@rm -f $(OBJ)

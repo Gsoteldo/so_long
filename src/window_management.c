@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   window_management.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 17:02:43 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/26 01:26:20 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/29 18:42:00 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
+
+void	error_loading(t_map *map)
+{
+	if (!map->img.collectable || !map->img.floor || !map->img.locked_exit
+		|| !map->img.player || !map->img.unlocked_exit || !map->img.wall)
+	{
+		free_map(map);
+		print_error(5);
+	}
+}
 
 void	load_sprites(t_map *map)
 {
@@ -34,11 +44,31 @@ void	load_sprites(t_map *map)
 		"./images/unlocked_door.xpm", &width, &height);
 	map->img.wall = mlx_xpm_file_to_image(map->mlx, \
 		"./images/wall.xpm", &width, &height);
-	if (!map->img.collectable || !map->img.floor || !map->img.locked_exit || !map->img.player || !map->img.unlocked_exit || !map->img.wall)
+	error_loading(map);
+}
+
+void	put_image_to_window(t_map *map, int i, int j)
+{
+	if (map->map[i][j] == '1')
+		mlx_put_image_to_window(map->mlx, map->win, map->img.wall, \
+			j * SIZE, i * SIZE);
+	else if (map->map[i][j] == '0')
+		mlx_put_image_to_window(map->mlx, map->win, map->img.floor, \
+			j * SIZE, i * SIZE);
+	else if (map->map[i][j] == 'C')
+		mlx_put_image_to_window(map->mlx, map->win, map->img.collectable, \
+			j * SIZE, i * SIZE);
+	else if (map->map[i][j] == 'E')
 	{
-		free_map(map);
-		print_error(4);
+		mlx_put_image_to_window(map->mlx, map->win, map->img.locked_exit, \
+			j * SIZE, i * SIZE);
+		if (map->n_collectable == 0)
+			mlx_put_image_to_window(map->mlx, map->win, map->img.unlocked_exit, \
+				j * SIZE, i * SIZE);
 	}
+	else if (map->map[i][j] == 'P')
+		mlx_put_image_to_window(map->mlx, map->win, map->img.player, j * SIZE, \
+			i * SIZE);
 }
 
 void	load_images(t_map *map)
@@ -53,30 +83,40 @@ void	load_images(t_map *map)
 		free_map(map);
 		print_error(4);
 	}
-	if (!map->img.collectable || !map->img.floor || !map->img.locked_exit || !map->img.player || !map->img.unlocked_exit || !map->img.wall)
+	if (!map->img.collectable || !map->img.floor || !map->img.locked_exit
+		|| !map->img.player || !map->img.unlocked_exit || !map->img.wall)
 		load_sprites(map);
 	while (map->map[i])
 	{
 		j = 0;
 		while (map->map[i][j])
 		{
-			if (map->map[i][j] == '1')
-				mlx_put_image_to_window(map->mlx, map->win, map->img.wall, j * SIZE, i * SIZE);
-			else if (map->map[i][j] == '0')
-				mlx_put_image_to_window(map->mlx, map->win, map->img.floor, j * SIZE, i * SIZE);
-			else if (map->map[i][j] == 'C')
-				mlx_put_image_to_window(map->mlx, map->win, map->img.collectable, j * SIZE, i * SIZE);
-			else if (map->map[i][j] == 'E')
-			{
-				mlx_put_image_to_window(map->mlx, map->win, map->img.locked_exit, j * SIZE, i * SIZE);
-				if (map->n_collectable == 0)
-					mlx_put_image_to_window(map->mlx, map->win, map->img.unlocked_exit, j * SIZE, i * SIZE);
-			}
-			else if (map->map[i][j] == 'P')
-				mlx_put_image_to_window(map->mlx, map->win, map->img.player, j * SIZE,  i * SIZE);
+			put_image_to_window(map, i, j);
 			j++;
 		}
 		i++;
-	}	
+	}
 }
 
+/*
+	if (map->map[i][j] == '1')
+		mlx_put_image_to_window(map->mlx, map->win, map->img.wall, 
+		j * SIZE, i * SIZE);
+	else if (map->map[i][j] == '0')
+		mlx_put_image_to_window(map->mlx, map->win, map->img.floor, 
+		j * SIZE, i * SIZE);
+		else if (map->map[i][j] == 'C')
+		mlx_put_image_to_window(map->mlx, map->win, map->img.collectable, 
+		j * SIZE, i * SIZE);
+		else if (map->map[i][j] == 'E')
+		{
+		mlx_put_image_to_window(map->mlx, map->win, map->img.locked_exit, 
+		j * SIZE, i * SIZE);
+		if (map->n_collectable == 0)
+			mlx_put_image_to_window(map->mlx, map->win, map->img.unlocked_exit,
+				j * SIZE, i * SIZE);
+			}
+		else if (map->map[i][j] == 'P')
+			mlx_put_image_to_window(map->mlx, map->win, map->img.player, 
+			j * SIZE,  i * SIZE);
+*/

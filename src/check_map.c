@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:36:58 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/26 00:58:17 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/29 23:08:49 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ void	flood_fill(t_map *map, int pos_x, int pos_y)
 		|| map->map_copy[pos_x][pos_y] == '1'
 		|| map->map_copy[pos_x][pos_y] == 'X')
 		return ;
+	if (map->map_copy[pos_x][pos_y] == 'C')
+		map->n_collectable--;
+	if (map->map_copy[pos_x][pos_y] == 'E'
+		&& map->n_collectable != 0)
+		return ;
 	map->map_copy[pos_x][pos_y] = 'X';
 	flood_fill(map, pos_x + 1, pos_y);
 	flood_fill(map, pos_x - 1, pos_y);
@@ -59,49 +64,22 @@ int	is_valid_map(t_map *map)
 	int	i;
 	int	pos_x;
 	int	pos_y;
+	int	n_collectable;
 
 	i = 0;
 	pos_x = map->size.x;
 	pos_y = map->size.y;
+	n_collectable = map->n_collectable;
 	flood_fill(map, pos_x, pos_y);
 	while (map->map_copy[i])
 	{
 		if ((ft_strchr(map->map_copy[i], 'E') != 0
 				|| ft_strchr(map->map_copy[i], 'C') != 0))
-			print_error(3);
+			print_error(4);
 		i++;
 	}
+	map->n_collectable = n_collectable;
 	return (1);
-}
-
-void	comprobation_map(t_map *map)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map->map_copy[i] != NULL)
-	{
-		j = 0;
-		while (map->map_copy[i][j++] != '\0')
-		{
-			if (map->map_copy[i][j] == 'C')
-				map->n_collectable++;
-			if (map->map_copy[i][j] == 'E')
-				map->n_exit++;
-			if (map->map_copy[i][j] == 'P')
-			{
-				map->n_start++;
-				map->size.x = i;
-				map->size.y = ft_strchr(map->map_copy[i], 'P') - map->map_copy[i];
-			}
-		}
-		i++;
-	}
-	if (map->n_collectable == 0 || map->n_exit != 1 || map->n_start != 1)
-		print_error(2);
-	map->size.width = i;
-	map->size.height = ft_strlen(map->map_copy[0]);
 }
 
 int	is_rectangle(char **map)
@@ -120,7 +98,6 @@ int	is_rectangle(char **map)
 		}
 		i++;
 	}
-	ft_printf("Es rectangular\n");
 	return (1);
 }
 
@@ -131,7 +108,6 @@ int	check_map(t_map *map)
 	char	*temp;
 
 	aux = ft_strdup("");
-	line = NULL;
 	if (map->fd < 0)
 		print_error(1);
 	line = get_next_line(map->fd);
@@ -143,15 +119,16 @@ int	check_map(t_map *map)
 		free(line);
 		line = get_next_line(map->fd);
 	}
-	free(line);
-	map->map_copy = ft_split(aux, '\n');
-	map->map = ft_split(aux, '\n');
-	close(map->fd);
-	comprobation_map(map);
+	temp = ft_strtrim(aux, "\n");
 	free(aux);
-	if (is_rectangle(map->map_copy) == 0 || surrounded_by_walls(map->map_copy) == 0)
-		print_error(2);
-	if (is_valid_map(map) == 0)
+	free(line);
+	if (has_empty_lines_in_middle(temp) == 1)
 		print_error(4);
+	map->map_copy = ft_split(temp, '\n');
+	map->map = ft_split(temp, '\n');
+	close(map->fd);
+	free(temp);
+	comprobation_map(map);
+	comprobation_wall(map);
 	return (1);
 }

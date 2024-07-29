@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:28:35 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/26 01:20:30 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/29 22:33:57 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 
 static int	check_extension(char *map)
 {
-	int	i;
+	size_t	size;
 
-	i = 0;
-	while (map[i] != '\0')
-		i++;
-	if (map[i - 4] != '.' || map[i - 3] != 'b' || map[i - 2] != 'e'
-		|| map[i - 1] != 'r')
+	size = ft_strlen(map);
+	if ((map[size - 4] != '.' || map[size - 3] != 'b' || map[size - 2] != 'e'
+			|| map[size - 1] != 'r') && (size < 5))
 		print_error(0);
 	return (1);
 }
@@ -62,13 +60,14 @@ void	start_game(t_map *map)
 		ft_printf("no crea el mlx\n");
 		return ;
 	}
-	map->win = mlx_new_window(map->mlx, map->size.height * SIZE, \
-		map->size.width * SIZE, "La leyenda de Sombra");
+	if (map->size.width <= 40)
+		map->win = mlx_new_window(map->mlx, map->size.height * SIZE, \
+			map->size.width * SIZE, "La leyenda de Sombra");
 	if (!map->win)
 	{
 		ft_printf("no crea la ventana\n");
+		print_error(2);
 		free_map(map);
-		return ;
 	}
 	load_images(map);
 	mlx_hook(map->win, CLOSE_BUTTON, 1L << 0, close_windows, map);
@@ -83,7 +82,7 @@ int	main(int argc, char *argv[])
 	initialize_map(&map);
 	if (comprobation(argc, argv) == 0)
 		return (0);
-	map.file = ft_strjoin("./maps/", argv[1]);
+	map.file = argv[1];
 	map.fd = open(map.file, O_RDONLY);
 	if (check_map(&map) == 0)
 		return (0);

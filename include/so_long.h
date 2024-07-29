@@ -6,41 +6,42 @@
 /*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:42:46 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/25 20:27:50 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/29 22:37:08 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-#include "../libft/libft.h"
-#include "../mlx/mlx.h"
+# include "../libft/libft.h"
+# include "../mlx/mlx.h"
 
-#define RC "\x1b[0m"
-#define RED "\x1b[31m"
-#define GREEN "\x1b[32m"
+# define RC "\x1b[0m"
+# define RED "\x1b[31m"
+# define GREEN "\x1b[32m"
 
-#define ESC 65307
-#define CLOSE_BUTTON 17 
-#define W_KEY 119
-#define A_KEY 97
-#define S_KEY 115
-#define D_KEY 100
-#define UP_KEY 65362
-#define DOWN_KEY 65364
-#define LEFT_KEY 65361
-#define RIGHT_KEY 65363
-#define SIZE 80
+# define ESC 65307
+# define CLOSE_BUTTON 17 
+# define W_KEY 119
+# define A_KEY 97
+# define S_KEY 115
+# define D_KEY 100
+# define UP_KEY 65362
+# define DOWN_KEY 65364
+# define LEFT_KEY 65361
+# define RIGHT_KEY 65363
+# define SIZE 80
 
-
+/*Position and Size Struct*/
 typedef struct s_size
 {
-	int x;
-	int y;
-	int width;
-	int height;
+	int	x;
+	int	y;
+	int	width;
+	int	height;
 }				t_size;
 
+/*Image Struct*/
 typedef struct s_image
 {
 	void	*collectable;
@@ -51,37 +52,43 @@ typedef struct s_image
 	void	*wall;
 }				t_image;
 
+/*Map and Game Struct*/
 typedef struct s_map
 {
 	void	*mlx;
 	void	*win;
-	int		fd;
-	char 	*file;
-	char	**map;
 	char	**map_copy;
-	int 	n_collectable;
+	char	**map;
+	char	*file;
+	int		exit_flag;
+	int		fd;
+	int		n_collectable;
 	int		n_exit;
+	int		n_movements;
 	int		n_start;
-	int 	n_movements;
-	int 	exit_flag;
+	t_image	img;
 	t_size	size;
-	t_image img;
 }				t_map;
 
-
-int check_map(t_map *map);
-
-void print_error(int message_flag);
-void initialize_map(t_map *map);
-void free_map(t_map *map);
-int close_windows(t_map *map);
-
-void load_images(t_map *map);
-
-int movements(int key, t_map *map);
-
-void lore_begin();
-void lore_thinks(t_map *map);
-void lore_end();
+/*Checker and Error Functions*/
+int		check_map(t_map *map);
+void	comprobation_map(t_map *map);
+void	comprobation_wall(t_map *map);
+int		is_rectangle(char **map);
+int		surrounded_by_walls(char **map);
+int		has_empty_lines_in_middle(char *str);
+int		is_valid_map(t_map *map);
+void	print_error(int message_flag);
+/*Map and Window Function*/
+void	free_map(t_map *map);
+void	initialize_map(t_map *map);
+void	load_images(t_map *map);
+/*Game Functions*/
+int		close_windows(t_map *map);
+int		movements(int key, t_map *map);
+/*Lore Function*/
+void	lore_begin(void);
+void	lore_thinks(t_map *map);
+void	lore_end(void);
 
 #endif

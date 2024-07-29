@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 17:35:57 by gsoteldo          #+#    #+#             */
-/*   Updated: 2024/07/26 00:49:02 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/29 22:36:57 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	print_error(int message_flag)
 		ft_putstr_fd("\t[Mapa imposible de resolver]\n\n", 2);
 	else if (message_flag == 5)
 		ft_putstr_fd("\t[No se pudieron cargar las imagenes]\n\n", 2);
-	else
+	else if (message_flag == 0)
 		ft_putstr_fd("\t[Extension invalida]\n\n", 2);
 	exit(0);
 }
@@ -97,8 +97,6 @@ void	free_map(t_map *map)
 		free(map->map);
 		free(map->map_copy);
 	}
-	if (map->file)
-		free(map->file);
 }
 
 int	close_windows(t_map *map)
