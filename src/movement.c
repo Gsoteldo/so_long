@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 20:35:56 by gsoteldo          #+#    #+#             */
-/*   Updated: 2024/07/25 23:07:33 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/26 01:00:56 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void up_movement(t_map *map)
+void	up_movement(t_map *map)
 {
 	if (map->map[map->size.x - 1][map->size.y] == '1')
 		return ;
@@ -39,7 +39,7 @@ void up_movement(t_map *map)
 	load_images(map);
 }
 
-void down_movement(t_map *map)
+void	down_movement(t_map *map)
 {
 	if (map->map[map->size.x + 1][map->size.y] == '1')
 		return ;
@@ -51,7 +51,7 @@ void down_movement(t_map *map)
 			return ;
 		}
 		else
-{
+		{
 			lore_thinks(map);
 			return ;
 		}
@@ -66,7 +66,7 @@ void down_movement(t_map *map)
 	load_images(map);
 }
 
-void left_movement(t_map *map)
+void	left_movement(t_map *map)
 {
 	if (map->map[map->size.x][map->size.y - 1] == '1')
 		return ;
@@ -93,7 +93,7 @@ void left_movement(t_map *map)
 	load_images(map);
 }
 
-void right_movement(t_map *map)
+void	right_movement(t_map *map)
 {
 	if (map->map[map->size.x][map->size.y + 1] == '1')
 		return ;
@@ -120,10 +120,9 @@ void right_movement(t_map *map)
 	load_images(map);
 }
 
-
-int movements(int key, t_map *map)
+int	movements(int key, t_map *map)
 {
-	if (key == W_KEY ||  key == UP_KEY)
+	if (key == W_KEY || key == UP_KEY)
 		up_movement(map);
 	else if (key == A_KEY || key == LEFT_KEY)
 		left_movement(map);
@@ -138,6 +137,5 @@ int movements(int key, t_map *map)
 	}
 	if (map->exit_flag == 1)
 		mlx_loop_end(map->mlx);
-	
 	return (0);
 }

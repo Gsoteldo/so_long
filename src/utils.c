@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 17:35:57 by gsoteldo          #+#    #+#             */
-/*   Updated: 2024/07/25 23:02:49 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/26 00:49:02 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void print_error(int message_flag)
+void	print_error(int message_flag)
 {
 	ft_putstr_fd(RED "Error:\n" RC, 2);
 	if (message_flag == 1)
@@ -20,16 +20,17 @@ void print_error(int message_flag)
 	else if (message_flag == 2)
 		ft_putstr_fd("\t[mapa invalido]\n\n", 2);
 	else if (message_flag == 3)
-		ft_putstr_fd("\t[Mapa imposible de resolver]\n\n", 2);
+		ft_putstr_fd("\t[Mapa no rodeado de paredes]\n\n", 2);
 	else if (message_flag == 4)
+		ft_putstr_fd("\t[Mapa imposible de resolver]\n\n", 2);
+	else if (message_flag == 5)
 		ft_putstr_fd("\t[No se pudieron cargar las imagenes]\n\n", 2);
 	else
 		ft_putstr_fd("\t[Extension invalida]\n\n", 2);
 	exit(0);
 }
 
-
-void initialize_map(t_map *map)
+void	initialize_map(t_map *map)
 {
 	map->mlx = NULL;
 	map->win = NULL;
@@ -56,45 +57,22 @@ void initialize_map(t_map *map)
 	map->img.wall = NULL;
 }
 
-
-void destroy_map(t_map *map)
+void	destroy_map(t_map *map)
 {
 	if (map->img.collectable)
-	{
 		mlx_destroy_image(map->mlx, map->img.collectable);
-		//map->img.collectable = NULL;
-	}
 	if (map->img.floor)
-	{
 		mlx_destroy_image(map->mlx, map->img.floor);
-		map->img.floor = NULL;
-	}
 	if (map->img.locked_exit)
-	{
 		mlx_destroy_image(map->mlx, map->img.locked_exit);
-		map->img.locked_exit = NULL;
-	}
 	if (map->img.player)
-	{
 		mlx_destroy_image(map->mlx, map->img.player);
-		map->img.player = NULL;
-	}
 	if (map->img.unlocked_exit)
-	{
 		mlx_destroy_image(map->mlx, map->img.unlocked_exit);
-		map->img.unlocked_exit = NULL;
-	}
 	if (map->img.wall)
-	{
 		mlx_destroy_image(map->mlx, map->img.wall);
-		map->img.wall = NULL;
-	}
-	//free(&map->img);
 	if (map->win)
-	{
 		mlx_destroy_window(map->mlx, map->win);
-		// free(map->win);
-	}
 	if (map->mlx)
 	{
 		mlx_destroy_display(map->mlx);
@@ -102,13 +80,12 @@ void destroy_map(t_map *map)
 	}
 }
 
-
-void free_map(t_map *map)
+void	free_map(t_map *map)
 {
-	int i;
+	int	i;
 
 	i = 0;
-		destroy_map(map);
+	destroy_map(map);
 	if (map->map && map->map_copy)
 	{
 		while (map->map[i])
@@ -122,14 +99,11 @@ void free_map(t_map *map)
 	}
 	if (map->file)
 		free(map->file);
-	
 }
 
-int close_windows(t_map *map)
+int	close_windows(t_map *map)
 {
 	mlx_loop_end(map->mlx);
-
 	free_map(map);
 	exit(0);
-	printf("Cerrando ventana\n");
 }
