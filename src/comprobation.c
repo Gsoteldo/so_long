@@ -6,7 +6,7 @@
 /*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 18:44:45 by gsoteldo          #+#    #+#             */
-/*   Updated: 2024/07/29 22:36:41 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:23:26 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,12 @@ int	has_empty_lines_in_middle(char *str)
 		str++;
 	}
 	return (0);
+}
+
+void	split_and_comprobation(t_map *map, char *line)
+{
+	map->map_copy = ft_split(line, '\n');
+	map->map = ft_split(line, '\n');
+	comprobation_map(map);
+	comprobation_wall(map);
 }

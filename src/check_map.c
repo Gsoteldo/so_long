@@ -6,7 +6,7 @@
 /*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:36:58 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/29 23:08:49 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:23:04 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ void	flood_fill(t_map *map, int pos_x, int pos_y)
 	if (map->map_copy[pos_x][pos_y] == 'E'
 		&& map->n_collectable != 0)
 		return ;
+	if (map->map_copy[pos_x][pos_y] != 'E' \
+		&& map->map_copy[pos_x][pos_y] != 'C' \
+		&& map->map_copy[pos_x][pos_y] != 'P' \
+		&& map->map_copy[pos_x][pos_y] != '0' \
+		&& map->map_copy[pos_x][pos_y] != '1')
+		print_error(4);
 	map->map_copy[pos_x][pos_y] = 'X';
 	flood_fill(map, pos_x + 1, pos_y);
 	flood_fill(map, pos_x - 1, pos_y);
@@ -124,11 +130,8 @@ int	check_map(t_map *map)
 	free(line);
 	if (has_empty_lines_in_middle(temp) == 1)
 		print_error(4);
-	map->map_copy = ft_split(temp, '\n');
-	map->map = ft_split(temp, '\n');
+	split_and_comprobation(map, temp);
 	close(map->fd);
 	free(temp);
-	comprobation_map(map);
-	comprobation_wall(map);
 	return (1);
 }

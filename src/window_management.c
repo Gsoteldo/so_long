@@ -6,7 +6,7 @@
 /*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 17:02:43 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/29 18:42:00 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:18:07 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,26 +97,3 @@ void	load_images(t_map *map)
 		i++;
 	}
 }
-
-/*
-	if (map->map[i][j] == '1')
-		mlx_put_image_to_window(map->mlx, map->win, map->img.wall, 
-		j * SIZE, i * SIZE);
-	else if (map->map[i][j] == '0')
-		mlx_put_image_to_window(map->mlx, map->win, map->img.floor, 
-		j * SIZE, i * SIZE);
-		else if (map->map[i][j] == 'C')
-		mlx_put_image_to_window(map->mlx, map->win, map->img.collectable, 
-		j * SIZE, i * SIZE);
-		else if (map->map[i][j] == 'E')
-		{
-		mlx_put_image_to_window(map->mlx, map->win, map->img.locked_exit, 
-		j * SIZE, i * SIZE);
-		if (map->n_collectable == 0)
-			mlx_put_image_to_window(map->mlx, map->win, map->img.unlocked_exit,
-				j * SIZE, i * SIZE);
-			}
-		else if (map->map[i][j] == 'P')
-			mlx_put_image_to_window(map->mlx, map->win, map->img.player, 
-			j * SIZE,  i * SIZE);
-*/

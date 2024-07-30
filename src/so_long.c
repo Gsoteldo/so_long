@@ -6,7 +6,7 @@
 /*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:28:35 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/29 22:33:57 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/30 21:37:04 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,17 @@ static int	check_extension(char *map)
 {
 	size_t	size;
 
-	size = ft_strlen(map);
-	if ((map[size - 4] != '.' || map[size - 3] != 'b' || map[size - 2] != 'e'
-			|| map[size - 1] != 'r') && (size < 5))
+	ft_strrchr(map, '.');
+	ft_strchr(map, '.');
+	if (ft_strncmp(ft_strrchr(map, '.'), ft_strchr(map, '.'), 5) == 0)
+	{
+		size = ft_strlen(map);
+		if ((map[size - 4] != '.' || map[size - 3] != 'b'
+				|| map[size - 2] != 'e'
+				|| map[size - 1] != 'r') && (size < 5))
+			print_error(0);
+	}
+	else
 		print_error(0);
 	return (1);
 }
@@ -87,6 +95,7 @@ int	main(int argc, char *argv[])
 	if (check_map(&map) == 0)
 		return (0);
 	lore_begin();
+	instruction();
 	start_game(&map);
 	lore_end();
 	free_map(&map);

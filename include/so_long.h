@@ -6,7 +6,7 @@
 /*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:42:46 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/29 22:37:08 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:21:51 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int		is_rectangle(char **map);
 int		surrounded_by_walls(char **map);
 int		has_empty_lines_in_middle(char *str);
 int		is_valid_map(t_map *map);
+void	split_and_comprobation(t_map *map, char *line);
 void	print_error(int message_flag);
 /*Map and Window Function*/
 void	free_map(t_map *map);
@@ -87,6 +88,7 @@ void	load_images(t_map *map);
 int		close_windows(t_map *map);
 int		movements(int key, t_map *map);
 /*Lore Function*/
+void	instruction(void);
 void	lore_begin(void);
 void	lore_thinks(t_map *map);
 void	lore_end(void);
