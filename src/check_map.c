@@ -6,7 +6,7 @@
 /*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:36:58 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/30 18:23:04 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/30 22:27:04 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ void	flood_fill(t_map *map, int pos_x, int pos_y)
 		&& map->map_copy[pos_x][pos_y] != 'P' \
 		&& map->map_copy[pos_x][pos_y] != '0' \
 		&& map->map_copy[pos_x][pos_y] != '1')
-		print_error(4);
+		{
+			free_map(map);
+			print_error(4);
+		}
 	map->map_copy[pos_x][pos_y] = 'X';
 	flood_fill(map, pos_x + 1, pos_y);
 	flood_fill(map, pos_x - 1, pos_y);
@@ -81,7 +84,10 @@ int	is_valid_map(t_map *map)
 	{
 		if ((ft_strchr(map->map_copy[i], 'E') != 0
 				|| ft_strchr(map->map_copy[i], 'C') != 0))
+			{
+			free_map(map);
 			print_error(4);
+			}
 		i++;
 	}
 	map->n_collectable = n_collectable;
@@ -129,7 +135,11 @@ int	check_map(t_map *map)
 	free(aux);
 	free(line);
 	if (has_empty_lines_in_middle(temp) == 1)
+	{
+		free(temp);
+		free_map(map);
 		print_error(4);
+	}
 	split_and_comprobation(map, temp);
 	close(map->fd);
 	free(temp);

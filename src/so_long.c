@@ -6,7 +6,7 @@
 /*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:28:35 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/30 21:37:04 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/30 22:20:47 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static int	check_extension(char *map)
 {
 	size_t	size;
 
-	ft_strrchr(map, '.');
-	ft_strchr(map, '.');
 	if (ft_strncmp(ft_strrchr(map, '.'), ft_strchr(map, '.'), 5) == 0)
 	{
 		size = ft_strlen(map);
@@ -68,14 +66,14 @@ void	start_game(t_map *map)
 		ft_printf("no crea el mlx\n");
 		return ;
 	}
-	if (map->size.width <= 40)
+	if (map->size.width <= 40 || map->size.height <= 100)
 		map->win = mlx_new_window(map->mlx, map->size.height * SIZE, \
 			map->size.width * SIZE, "La leyenda de Sombra");
 	if (!map->win)
 	{
 		ft_printf("no crea la ventana\n");
-		print_error(2);
 		free_map(map);
+		print_error(2);
 	}
 	load_images(map);
 	mlx_hook(map->win, CLOSE_BUTTON, 1L << 0, close_windows, map);

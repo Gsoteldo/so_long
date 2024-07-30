@@ -6,7 +6,7 @@
 /*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 17:02:43 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/30 18:18:07 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/30 21:55:16 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,17 @@ void	load_sprites(t_map *map)
 		print_error(4);
 	}
 	map->img.collectable = mlx_xpm_file_to_image(map->mlx, \
-		"./images/collectable.xpm", &width, &height);
+		"./textures/collectable.xpm", &width, &height);
 	map->img.floor = mlx_xpm_file_to_image(map->mlx, \
-		"./images/floor.xpm", &width, &height);
+		"./textures/floor.xpm", &width, &height);
 	map->img.locked_exit = mlx_xpm_file_to_image(map->mlx, \
-		"./images/locked_door.xpm", &width, &height);
+		"./textures/locked_door.xpm", &width, &height);
 	map->img.player = mlx_xpm_file_to_image(map->mlx, \
-		"./images/player.xpm", &width, &height);
+		"./textures/player.xpm", &width, &height);
 	map->img.unlocked_exit = mlx_xpm_file_to_image(map->mlx, \
-		"./images/unlocked_door.xpm", &width, &height);
+		"./textures/unlocked_door.xpm", &width, &height);
 	map->img.wall = mlx_xpm_file_to_image(map->mlx, \
-		"./images/wall.xpm", &width, &height);
+		"./textures/wall.xpm", &width, &height);
 	error_loading(map);
 }
 

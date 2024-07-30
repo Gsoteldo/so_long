@@ -6,7 +6,7 @@
 /*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 18:44:45 by gsoteldo          #+#    #+#             */
-/*   Updated: 2024/07/30 18:23:26 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/30 22:23:56 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,15 @@ void	comprobation_wall(t_map *map)
 {
 	if (is_rectangle(map->map_copy) == 0
 		|| surrounded_by_walls(map->map_copy) == 0)
-		print_error(2);
+	{
+		free_map(map);
+		print_error(3);
+	}
 	if (is_valid_map(map) == 0)
+	{
+		free_map(map);
 		print_error(4);
+	}
 }
 
 int	has_empty_lines_in_middle(char *str)
