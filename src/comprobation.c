@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   comprobation.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 18:44:45 by gsoteldo          #+#    #+#             */
-/*   Updated: 2024/07/30 22:23:56 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/31 14:00:56 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,16 @@ int	has_empty_lines_in_middle(char *str)
 
 void	split_and_comprobation(t_map *map, char *line)
 {
-	map->map_copy = ft_split(line, '\n');
 	map->map = ft_split(line, '\n');
+	map->map_copy = ft_split(line, '\n');
+	if (map->map == NULL || map->map_copy == NULL)
+	{
+		free(map->map);
+		free(map->map_copy);
+	}	
+
+
+	free(line);
 	comprobation_map(map);
 	comprobation_wall(map);
 }

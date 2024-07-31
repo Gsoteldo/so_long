@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 17:35:57 by gsoteldo          #+#    #+#             */
-/*   Updated: 2024/07/30 22:17:19 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/31 13:56:53 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ void	free_map(t_map *map)
 			free(map->map_copy[i]);
 			i++;
 		}
-		free(map->map);
-		free(map->map_copy);
+		// free(map->map);
+		// free(map->map_copy);
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:36:58 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/30 22:27:04 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/31 14:21:19 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int	check_map(t_map *map)
 		print_error(4);
 	}
 	split_and_comprobation(map, temp);
-	close(map->fd);
 	free(temp);
+	close(map->fd);
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:28:35 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/30 22:20:47 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/07/31 15:22:34 by gabo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@
 static int	check_extension(char *map)
 {
 	size_t	size;
-
 	if (ft_strncmp(ft_strrchr(map, '.'), ft_strchr(map, '.'), 5) == 0)
 	{
 		size = ft_strlen(map);
 		if ((map[size - 4] != '.' || map[size - 3] != 'b'
 				|| map[size - 2] != 'e'
-				|| map[size - 1] != 'r') && (size < 5))
+				|| map[size - 1] != 'r'))
 			print_error(0);
 	}
 	else
