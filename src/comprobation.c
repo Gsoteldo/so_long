@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   comprobation.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 18:44:45 by gsoteldo          #+#    #+#             */
-/*   Updated: 2024/07/31 14:00:56 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/31 22:51:57 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ void	comprobation_map(t_map *map)
 		i++;
 	}
 	if (map->n_collectable == 0 || map->n_exit != 1 || map->n_start != 1)
+	{
+		free_map(map);
 		print_error(2);
+	}
 	map->size.width = i;
 	map->size.height = ft_strlen(map->map_copy[0]);
 }
@@ -91,14 +94,14 @@ void	split_and_comprobation(t_map *map, char *line)
 {
 	map->map = ft_split(line, '\n');
 	map->map_copy = ft_split(line, '\n');
+	free(line);
 	if (map->map == NULL || map->map_copy == NULL)
 	{
-		free(map->map);
-		free(map->map_copy);
-	}	
-
-
-	free(line);
+		free_map(map);
+		print_error(1);
+	}
+	
+	// free(line);
 	comprobation_map(map);
 	comprobation_wall(map);
 }

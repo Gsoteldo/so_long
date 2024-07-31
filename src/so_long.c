@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:28:35 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/31 15:22:34 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/31 23:00:49 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,14 @@
 static int	check_extension(char *map)
 {
 	size_t	size;
-	if (ft_strncmp(ft_strrchr(map, '.'), ft_strchr(map, '.'), 5) == 0)
+	char	*first_dot;
+	char	*last_dot;
+
+	first_dot = ft_strchr(map, '.');
+	last_dot = ft_strrchr(map, '.');
+	if (first_dot == NULL || last_dot == NULL)
+		print_error(0);
+	if (ft_strncmp(last_dot, first_dot, 5) == 0)
 	{
 		size = ft_strlen(map);
 		if ((map[size - 4] != '.' || map[size - 3] != 'b'
@@ -65,7 +72,7 @@ void	start_game(t_map *map)
 		ft_printf("no crea el mlx\n");
 		return ;
 	}
-	if (map->size.width <= 40 || map->size.height <= 100)
+	if (map->size.width <= 40 && map->size.height <= 100)
 		map->win = mlx_new_window(map->mlx, map->size.height * SIZE, \
 			map->size.width * SIZE, "La leyenda de Sombra");
 	if (!map->win)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+         #
+#    By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/29 21:28:44 by gabo              #+#    #+#              #
-#    Updated: 2024/07/31 15:17:36 by gabo             ###   ########.fr        #
+#    Updated: 2024/07/31 23:11:36 by gsoteldo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ OBJ = $(SRC:.c=.o)
 
 
 
-CC = gcc #-g3 -fsanitize=address,leak
+CC = gcc -g3 -fsanitize=address,leak
 CFLAGS = -Wall -Wextra -Werror
 MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 

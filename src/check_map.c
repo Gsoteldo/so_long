@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabo <gabo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:36:58 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/31 14:21:19 by gabo             ###   ########.fr       */
+/*   Updated: 2024/07/31 23:10:37 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	flood_fill(t_map *map, int pos_x, int pos_y)
 		&& map->map_copy[pos_x][pos_y] != '1')
 		{
 			free_map(map);
-			print_error(4);
+			print_error(2);
 		}
 	map->map_copy[pos_x][pos_y] = 'X';
 	flood_fill(map, pos_x + 1, pos_y);
@@ -132,8 +132,8 @@ int	check_map(t_map *map)
 		line = get_next_line(map->fd);
 	}
 	temp = ft_strtrim(aux, "\n");
+	// ft_printf("Mapa: %s\n", temp);
 	free(aux);
-	free(line);
 	if (has_empty_lines_in_middle(temp) == 1)
 	{
 		free(temp);
@@ -141,7 +141,7 @@ int	check_map(t_map *map)
 		print_error(4);
 	}
 	split_and_comprobation(map, temp);
-	free(temp);
+	// free(temp);
 	close(map->fd);
 	return (1);
 }
