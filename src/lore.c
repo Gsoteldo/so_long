@@ -6,7 +6,7 @@
 /*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 22:08:54 by gsoteldo          #+#    #+#             */
-/*   Updated: 2024/07/30 18:17:36 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:06:24 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	lore_thinks(t_map *map)
 	ft_printf("------------------\n\n");
 }
 
-void	lore_end(void)
+void	lore_end(t_map *map)
 {
 	ft_printf("-------------------------------------------------------------");
 	ft_printf("------------------\n\n");
@@ -72,8 +72,7 @@ void	lore_end(void)
 	ft_printf("su vida de ladrón para siempre. Utilizaría su botín para ");
 	ft_printf("construir\nun refugio seguro para los huérfanos de la ciudad,");
 	ft_printf(" ofreciendo esperanza\n y un futuro mejor a aquellos que, ");
-	ft_printf("como él, habían vivido en las sombras.\n\n");
-	ft_printf("                                 English\n\n");
+	ft_printf("como él, habían vivido en las sombras.\n\n\t\t\t\tEnglish\n\n");
 	ft_printf("With his bag full of coins and his heart beating with the ");
 	ft_printf("excitement\nof victory, he headed towards the exit. With an ");
 	ft_printf("agile leap, he crossed\nthe door and slid into the darkness ");
@@ -86,6 +85,7 @@ void	lore_end(void)
 	ft_printf(GREEN"                                     FIN\n" RC);
 	ft_printf("-------------------------------------------------------------");
 	ft_printf("------------------\n\n");
+	ft_printf("Total de movimientos: %d\n", map->n_movements);
 }
 
 void	instruction(void)

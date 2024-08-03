@@ -6,7 +6,7 @@
 /*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:42:46 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/30 22:17:10 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:54:35 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,6 @@ int		movements(int key, t_map *map);
 void	instruction(void);
 void	lore_begin(void);
 void	lore_thinks(t_map *map);
-void	lore_end(void);
+void	lore_end(t_map *map);
 
 #endif

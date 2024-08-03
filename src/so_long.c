@@ -6,7 +6,7 @@
 /*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:28:35 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/31 23:00:49 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:24:13 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,11 @@ int key_view(int key, void * param)
 
 void	start_game(t_map *map)
 {
-	ft_printf("Start game\n");
 	map->mlx = mlx_init();
-	ft_printf("Mlx: %p\n", map->mlx);
 	if (!map->mlx)
 	{
-		ft_printf("no crea el mlx\n");
+		ft_putstr_fd(RED "Error! " RC, 2);
+		ft_putstr_fd("No se pudo iniciar el mlx\n", 2);
 		return ;
 	}
 	if (map->size.width <= 40 && map->size.height <= 100)
@@ -77,10 +76,13 @@ void	start_game(t_map *map)
 			map->size.width * SIZE, "La leyenda de Sombra");
 	if (!map->win)
 	{
-		ft_printf("no crea la ventana\n");
+		ft_putstr_fd(RED "Error! " RC, 2);
+		ft_putstr_fd("No se pudo iniciar la ventana\n", 2);
 		free_map(map);
 		print_error(2);
 	}
+	lore_begin();
+	instruction();
 	load_images(map);
 	mlx_hook(map->win, CLOSE_BUTTON, 1L << 0, close_windows, map);
 	mlx_key_hook(map->win, movements, map);
@@ -96,12 +98,12 @@ int	main(int argc, char *argv[])
 		return (0);
 	map.file = argv[1];
 	map.fd = open(map.file, O_RDONLY);
+	if (map.fd < 0)
+		print_error(1);
 	if (check_map(&map) == 0)
 		return (0);
-	lore_begin();
-	instruction();
 	start_game(&map);
-	lore_end();
+	lore_end(&map);
 	free_map(&map);
 	return (0);
 }

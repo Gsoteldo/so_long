@@ -6,7 +6,7 @@
 /*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 18:44:45 by gsoteldo          #+#    #+#             */
-/*   Updated: 2024/07/31 22:51:57 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:06:31 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,6 @@ void	split_and_comprobation(t_map *map, char *line)
 		free_map(map);
 		print_error(1);
 	}
-	
-	// free(line);
 	comprobation_map(map);
 	comprobation_wall(map);
 }

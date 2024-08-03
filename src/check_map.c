@@ -6,17 +6,23 @@
 /*   By: gsoteldo <gsoteldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:36:58 by gabo              #+#    #+#             */
-/*   Updated: 2024/07/31 23:10:37 by gsoteldo         ###   ########.fr       */
+/*   Updated: 2024/08/03 17:53:04 by gsoteldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-int	surrounded_by_walls(char **map)
+/**
+ * Verifica si el mapa está rodeado por paredes.
+ * 
+ * @param map El mapa representado como una matriz de caracteres.
+ * @return 1 si el mapa está rodeado por paredes.
+ */
+int surrounded_by_walls(char **map)
 {
-	int	i;
-	int	j;
-	int	size;
+	int i;
+	int j;
+	int size;
 
 	i = 0;
 	j = 0;
@@ -40,34 +46,63 @@ int	surrounded_by_walls(char **map)
 	return (1);
 }
 
-void	flood_fill(t_map *map, int pos_x, int pos_y)
+/**
+ * Realiza un algoritmo de relleno por inundación (flood fill) en el mapa.
+ * 
+ * El algoritmo se utiliza para explorar y marcar todas las casillas accesibles
+ * desde una posición inicial en el mapa. Se utiliza para verificar la validez
+ * del mapa y contar los elementos recolectables.
+ * 
+ * @param map El puntero al mapa.
+ * @param pos_x La posición en el eje x.
+ * @param pos_y La posición en el eje y.
+ */
+void flood_fill(t_map *map, int pos_x, int pos_y)
 {
+	// Verificar los límites del mapa y las casillas bloqueadas
 	if (pos_x < 0 || pos_x >= map->size.width
 		|| pos_y < 0 || pos_y >= map->size.height
 		|| map->map_copy[pos_x][pos_y] == '1'
 		|| map->map_copy[pos_x][pos_y] == 'X')
-		return ;
+		return;
+
+	// Decrementar el contador de elementos recolectables si se encuentra uno
 	if (map->map_copy[pos_x][pos_y] == 'C')
 		map->n_collectable--;
+
+	// Verificar si se llegó a la salida sin recolectar todos los elementos
 	if (map->map_copy[pos_x][pos_y] == 'E'
 		&& map->n_collectable != 0)
-		return ;
-	if (map->map_copy[pos_x][pos_y] != 'E' \
-		&& map->map_copy[pos_x][pos_y] != 'C' \
-		&& map->map_copy[pos_x][pos_y] != 'P' \
-		&& map->map_copy[pos_x][pos_y] != '0' \
+		return;
+
+	// Verificar si la casilla es válida
+	if (map->map_copy[pos_x][pos_y] != 'E'
+		&& map->map_copy[pos_x][pos_y] != 'C'
+		&& map->map_copy[pos_x][pos_y] != 'P'
+		&& map->map_copy[pos_x][pos_y] != '0'
 		&& map->map_copy[pos_x][pos_y] != '1')
-		{
-			free_map(map);
-			print_error(2);
-		}
+	{
+		free_map(map);
+		print_error(2);
+	}
+
+	// Marcar la casilla como visitada
 	map->map_copy[pos_x][pos_y] = 'X';
+
+	// Llamar recursivamente al algoritmo para las casillas vecinas
 	flood_fill(map, pos_x + 1, pos_y);
 	flood_fill(map, pos_x - 1, pos_y);
 	flood_fill(map, pos_x, pos_y + 1);
 	flood_fill(map, pos_x, pos_y - 1);
 }
 
+
+/**
+ * Verifica si el mapa es válido.
+ * 
+ * @param map El mapa a verificar.
+ * @return 1 si el mapa es válido, 0 en caso contrario.
+ */
 int	is_valid_map(t_map *map)
 {
 	int	i;
@@ -84,20 +119,27 @@ int	is_valid_map(t_map *map)
 	{
 		if ((ft_strchr(map->map_copy[i], 'E') != 0
 				|| ft_strchr(map->map_copy[i], 'C') != 0))
-			{
+		{
 			free_map(map);
 			print_error(4);
-			}
+		}
 		i++;
 	}
 	map->n_collectable = n_collectable;
 	return (1);
 }
 
-int	is_rectangle(char **map)
+
+/**
+ * Verifica si el mapa es un rectángulo.
+ * 
+ * @param map El mapa representado como una matriz de cadenas de caracteres.
+ * @return 1 si el mapa es un rectángulo, 0 en caso contrario.
+ */
+int is_rectangle(char **map)
 {
-	int		i;
-	size_t	size;
+	int i;
+	size_t size;
 
 	i = 1;
 	size = ft_strlen(map[0]);
@@ -120,8 +162,6 @@ int	check_map(t_map *map)
 	char	*temp;
 
 	aux = ft_strdup("");
-	if (map->fd < 0)
-		print_error(1);
 	line = get_next_line(map->fd);
 	while (line != NULL)
 	{
@@ -132,7 +172,6 @@ int	check_map(t_map *map)
 		line = get_next_line(map->fd);
 	}
 	temp = ft_strtrim(aux, "\n");
-	// ft_printf("Mapa: %s\n", temp);
 	free(aux);
 	if (has_empty_lines_in_middle(temp) == 1)
 	{
@@ -141,7 +180,6 @@ int	check_map(t_map *map)
 		print_error(4);
 	}
 	split_and_comprobation(map, temp);
-	// free(temp);
 	close(map->fd);
 	return (1);
 }
